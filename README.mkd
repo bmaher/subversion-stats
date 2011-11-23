@@ -1,0 +1,7 @@
+# Subversion Stats
+
+Subversion Stats is a WebApp for displaying statistics for Subversion repositories.
+
+Authors: 
+* [*Brian Maher*](http://twitter.com/bmaher_qa)
+* [*Matt Newman*](http://twitter.com/mpn_1983)
