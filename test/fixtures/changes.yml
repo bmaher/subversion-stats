@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  revision: 1
+  status: MyString
+  project_root: MyString
+  filepath: MyString
+  fullpath: MyString
+
+two:
+  revision: 1
+  status: MyString
+  project_root: MyString
+  filepath: MyString
+  fullpath: MyString

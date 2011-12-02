@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Revision:</b>
+  <%= @commit.revision %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @commit.user_id %>
+</p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @commit.datetime %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @commit.message %>
+</p>
+
+
+<%= link_to 'Edit', edit_commit_path(@commit) %> |
+<%= link_to 'Back', commits_path %>

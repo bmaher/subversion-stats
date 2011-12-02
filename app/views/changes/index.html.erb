@@ -1,0 +1,31 @@
+<h1>Listing changes</h1>
+
+<table>
+  <tr>
+    <th>Revision</th>
+    <th>Status</th>
+    <th>Project root</th>
+    <th>Filepath</th>
+    <th>Fullpath</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @changes.each do |change| %>
+  <tr>
+    <td><%= change.revision %></td>
+    <td><%= change.status %></td>
+    <td><%= change.project_root %></td>
+    <td><%= change.filepath %></td>
+    <td><%= change.fullpath %></td>
+    <td><%= link_to 'Show', change %></td>
+    <td><%= link_to 'Edit', edit_change_path(change) %></td>
+    <td><%= link_to 'Destroy', change, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Change', new_change_path %>

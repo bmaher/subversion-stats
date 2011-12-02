@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Revision:</b>
+  <%= @change.revision %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @change.status %>
+</p>
+
+<p>
+  <b>Project root:</b>
+  <%= @change.project_root %>
+</p>
+
+<p>
+  <b>Filepath:</b>
+  <%= @change.filepath %>
+</p>
+
+<p>
+  <b>Fullpath:</b>
+  <%= @change.fullpath %>
+</p>
+
+
+<%= link_to 'Edit', edit_change_path(@change) %> |
+<%= link_to 'Back', changes_path %>
