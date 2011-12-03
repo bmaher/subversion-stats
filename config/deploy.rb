@@ -1,10 +1,12 @@
 set :application, "subversion-stats"
 set :domain,      "dojann.co.uk"
-set :repository,  "git@github.com:bmaher/subversion-stats.git"
-set :use_sudo,    false
-set :deploy_to,   "/var/www/#{application}"
+
 set :scm,         "git"
+set :repository,  "git@github.com:bmaher/subversion-stats.git"
+
 set :user,        "deploy"
+set :deploy_to,   "/var/www/#{application}"
+set :use_sudo,    false
 
 role :app, domain
 role :web, domain
@@ -20,7 +22,6 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    # Do nothing.
   end
 
   desc "Restart Application"
