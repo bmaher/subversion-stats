@@ -1,5 +1,5 @@
 set :application, "subversion-stats"
-set :domain,      "dojann.co.uk"
+set :domain,      "subversion-stats.com"
 
 set :scm,         "git"
 set :repository,  "git@github.com:bmaher/subversion-stats.git"
