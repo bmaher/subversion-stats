@@ -14,6 +14,8 @@ gem 'haml'
 
 gem 'jquery-rails'
 
+gem 'therubyracer'
+
 group :test do
   gem 'turn', '0.8.2', :require => false
 end
