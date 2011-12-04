@@ -1,7 +1,3 @@
-class User < ActiveRecord::Base
-  validates :username, :presence => true
-end
-
 # == Schema Information
 #
 # Table name: users
@@ -12,3 +8,10 @@ end
 #  updated_at :datetime
 #
 
+class User < ActiveRecord::Base
+  attr_accessible :username
+  
+  has_many :commits
+  
+  validates :username, :presence => true
+end

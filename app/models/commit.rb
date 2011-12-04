@@ -1,6 +1,3 @@
-class Commit < ActiveRecord::Base
-end
-
 # == Schema Information
 #
 # Table name: commits
@@ -14,3 +11,14 @@ end
 #  updated_at :datetime
 #
 
+class Commit < ActiveRecord::Base
+  attr_accessible :revision, :user_id, :datetime, :message
+  
+  belongs_to  :user
+  has_many    :change
+ 
+  validates :revision,  :presence => true
+  validates :user_id,   :presence => true
+  validates :datetime,  :presence => true
+  validates :message,   :presence => true
+end
