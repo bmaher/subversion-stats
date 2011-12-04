@@ -21,5 +21,5 @@ class Change < ActiveRecord::Base
   validates :status,        :presence => true
   validates :project_root,  :presence => true
   validates :filepath,      :presence => true
-  validates :fullpath,       :presence => true
+  validates :fullpath,      :presence => true
 end
