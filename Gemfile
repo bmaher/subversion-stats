@@ -14,6 +14,7 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'libxml-ruby'
 end
 
 group :test do
