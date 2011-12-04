@@ -6,8 +6,8 @@ describe Commit do
     
     @user = User.create!(:username => "Test User")
     
-    @attr = { :revision => "r1234",
-              :user_id  => "1234",
+    @attr = { :revision => 1234,
+              :user_id  => @user.id,
               :datetime => "01/01/2011",
               :message  => "my commit" }
   end

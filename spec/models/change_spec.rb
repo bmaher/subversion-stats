@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Change do
   
   before(:each) do  
-    @attr = { :revision     => "1234",
+    @attr = { :revision     => 1234,
               :status       => "A",
               :project_root => "myProject",
               :filepath     => "/myProject/trunk/",
