@@ -10,6 +10,7 @@
 #  fullpath     :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  commit_id    :integer
 #
 
 class Change < ActiveRecord::Base
@@ -22,4 +23,6 @@ class Change < ActiveRecord::Base
   validates :project_root,  :presence => true
   validates :filepath,      :presence => true
   validates :fullpath,      :presence => true
+  validates :commit_id,     :presence => true
 end
+

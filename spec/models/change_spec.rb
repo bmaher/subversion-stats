@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Change do
   
-  before(:each) do  
-    @attr = { :revision     => 1234,
+  before(:each) do
+    @commit = Factory(:commit)
+      
+    @attr = { :revision     => @commit.revision,
               :status       => "A",
               :project_root => "myProject",
               :filepath     => "/myProject/trunk/",
@@ -11,7 +13,7 @@ describe Change do
   end
   
   it "should create a new instance given valid attributes" do
-    Change.create!(@attr)
+    @commit.changes.create!(@attr)
   end
   
   describe "validations" do
@@ -37,3 +39,18 @@ describe Change do
     end
   end
 end
+# == Schema Information
+#
+# Table name: changes
+#
+#  id           :integer         not null, primary key
+#  revision     :integer
+#  status       :string(255)
+#  project_root :string(255)
+#  filepath     :string(255)
+#  fullpath     :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  commit_id    :integer
+#
+

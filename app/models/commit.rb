@@ -12,10 +12,10 @@
 #
 
 class Commit < ActiveRecord::Base
-  attr_accessible :revision, :user_id, :datetime, :message
+  attr_accessible :revision, :datetime, :message
   
   belongs_to  :user
-  has_many    :change
+  has_many    :changes
    
   validates :revision,  :presence => true
   validates :user_id,   :presence => true

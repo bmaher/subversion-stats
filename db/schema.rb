@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204180500) do
+ActiveRecord::Schema.define(:version => 20111204230755) do
 
   create_table "changes", :force => true do |t|
     t.integer  "revision"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20111204180500) do
     t.string   "fullpath"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "commit_id"
   end
 
   add_index "changes", ["filepath"], :name => "index_changes_on_filepath"

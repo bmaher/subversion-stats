@@ -1,0 +1,14 @@
+.profile
+  %h1
+    = @user.username
+  
+  .commits
+    %h3 Commits
+    %ul.commits
+      - commits_for(@user).each do |commit|
+        %li
+        = link_to commit.revision, commit
+  
+= link_to 'Edit', edit_user_path(@user)
+|
+= link_to 'Back', users_path

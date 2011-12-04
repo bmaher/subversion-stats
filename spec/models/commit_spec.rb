@@ -4,16 +4,15 @@ describe Commit do
   
   before(:each) do
     
-    @user = User.create!(:username => "Test User")
+    @user = Factory(:user)
     
     @attr = { :revision => 1234,
-              :user_id  => @user.id,
               :datetime => "01/01/2011",
               :message  => "my commit" }
   end
   
   it "should create a new instance given valid attributes" do
-    Commit.create!(@attr)
+    @user.commits.create!(@attr)
   end
   
   describe "validations" do
@@ -58,7 +57,20 @@ describe Commit do
     end
     
     it "should have a change attribute" do
-      @commit.should respond_to(:change)
+      @commit.should respond_to(:changes)
     end
   end  
 end
+# == Schema Information
+#
+# Table name: commits
+#
+#  id         :integer         not null, primary key
+#  revision   :integer
+#  user_id    :integer
+#  datetime   :string(255)
+#  message    :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
