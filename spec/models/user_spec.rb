@@ -10,4 +10,8 @@ describe User do
     User.create!(@attr)
   end
   
+  it "should require a username" do
+    User.new(@attr.merge(:username => "")).should_not be_valid
+  end
+  
 end
