@@ -1,0 +1,14 @@
+%p#id= notice
+.change
+  %h1= "Revision: #{@change.revision}"
+  %h3 Status
+  %p= @change.status
+  %h3 Project Root
+  %p= @change.project_root
+  %h3 Filepath
+  %p= @change.filepath
+  %h3 Fullpath
+  %p= @change.fullpath
+%br
+= link_to 'Edit', edit_commit_path(@commit)
+= link_to 'Back', commits_path

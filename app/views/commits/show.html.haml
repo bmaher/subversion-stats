@@ -1,0 +1,17 @@
+%p#id= notice
+.commit
+  %h1= "Revision: #{@commit.revision}"
+  .changes
+    %h3 Changes
+    %ul.changes
+      - changes_for(@commit).each do |change|
+        %li= link_to change.id, change
+  %h3 User
+  %p= @commit.user_id
+  %h3 Datetime
+  %p= @commit.datetime
+  %h3 Message
+  %p= @commit.message
+%br
+= link_to 'Edit', edit_commit_path(@commit)
+= link_to 'Back', commits_path

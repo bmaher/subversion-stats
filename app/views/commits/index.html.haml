@@ -1,0 +1,7 @@
+%h1 All commits
+= will_paginate
+%ul.commits
+  - @commits.each do |commit|
+    %li= link_to commit.revision, commit
+= link_to 'New Commit', new_commit_path
+= will_paginate

@@ -1,0 +1,7 @@
+%h1 All changes
+= will_paginate
+%ul.commits
+  - @changes.each do |change|
+    %li= link_to change.revision, change
+= link_to 'New Change', new_change_path
+= will_paginate

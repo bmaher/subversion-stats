@@ -2,7 +2,7 @@ class ChangesController < ApplicationController
   # GET /changes
   # GET /changes.json
   def index
-    @changes = Change.all
+    @changes = Change.all.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

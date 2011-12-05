@@ -1,0 +1,19 @@
+= form_for(@change) do |f|
+  = render "shared/error_messages", :f => f, :@object => f.object
+  .field
+    %div= f.label :revision
+    %div= f.number_field :revision
+  .field
+    %div= f.label :status
+    %div= f.text_field :status
+  .field
+    %div= f.label :project_root
+    %div= f.text_field :project_root
+  .field
+    %div= f.label :filepath
+    %div= f.text_field :filepath
+  .field
+    %div= f.label :fullpath
+    %div= f.text_field :fullpath
+  .actions
+    %div= f.submit
