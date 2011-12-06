@@ -26,8 +26,13 @@ namespace :deploy do
   task :stop, :roles => :app do
   end
 
-  desc "Restart Application"
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
   end
+  
+  task :symlink_shared do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
 end
+
+after 'deploy:update_code', 'deploy:symlink_shared'
