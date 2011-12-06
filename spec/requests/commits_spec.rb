@@ -7,7 +7,7 @@ describe "Commits" do
     describe "failure" do
       it "should not make a new commit" do
         lambda do
-          visit new_comit_path
+          visit new_commit_path
           fill_in "Revision", :with => ""
           fill_in "User", :with => ""
           fill_in "Datetime", :with => ""
@@ -22,9 +22,10 @@ describe "Commits" do
     describe "success" do
       it "should make a new commit" do
         lambda do
+          user = Factory(:user)
           visit new_commit_path
           fill_in "Revision", :with => 1234
-          fill_in "User", :with => 1
+          fill_in "User", :with => user.id
           fill_in "Datetime", :with => "01/01/2011"
           fill_in "Message", :with => "Message"
           click_button
