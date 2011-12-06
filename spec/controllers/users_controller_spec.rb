@@ -6,8 +6,8 @@ describe UsersController do
   describe "GET 'index'" do
     
     before(:each) do
-      Factory(:user, :username => "user1")
-      30.times { Factory(:user, :username => Factory.next(:userId)) }
+      Factory(:user, :name => "user1")
+      30.times { Factory(:user, :name => Factory.next(:userId)) }
     end
 
     it "should be successful" do
@@ -23,7 +23,7 @@ describe UsersController do
     it "should have an element for each user" do
       get :index
       User.all.paginate(:page => 1).each do |user|
-        response.should have_selector("li", :content => user.username)
+        response.should have_selector("li", :content => user.name)
       end
     end
     
@@ -56,12 +56,12 @@ describe UsersController do
      
      it "should have the right title" do
        get :show, :id => @user.id
-       response.should have_selector("title", :content => @user.username)
+       response.should have_selector("title", :content => @user.name)
      end
      
      it "should have the user's name" do
        get :show, :id => @user.id
-       response.should have_selector("h1", :content => @user.username)
+       response.should have_selector("h1", :content => @user.name)
      end
      
      it "should have the user's commits" do
@@ -93,7 +93,7 @@ describe UsersController do
      describe "failure" do
        
        before(:each) do
-         @attr = { :username => "" }
+         @attr = { :name => "" }
        end
        
        it "should have the right title" do
@@ -116,7 +116,7 @@ describe UsersController do
      describe "success" do
        
        before(:each) do
-         @attr = { :username => "Test User" }
+         @attr = { :name => "Test User" }
        end
        
        it "should create a user" do
@@ -158,7 +158,7 @@ describe UsersController do
      describe "failure" do
    
        before(:each) do
-         @attr = { :username => "" }
+         @attr = { :name => "" }
        end
    
        it "should render the 'edit' page" do
@@ -182,7 +182,7 @@ describe UsersController do
          put :update, :id => @user, :user => @attr
          user = assigns(:user)
          @user.reload
-         @user.username.should == user.username
+         @user.name.should == user.name
        end
      end   
    end

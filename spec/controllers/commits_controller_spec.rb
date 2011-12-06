@@ -76,9 +76,9 @@ describe CommitsController do
       response.should have_selector("li", :content => commit.changes.first.fullpath)
     end
     
-    it "should have the commit's user's username" do
+    it "should have the commit's user's name" do
       get :show, :id => @commit.id
-      response.should have_selector("div", :content => @commit.user.username)
+      response.should have_selector("div", :content => @commit.user.name)
     end
     
     it "should have the commit's datetime" do

@@ -7,7 +7,7 @@
       - changes_for(@commit).each do |change|
         %li= link_to change.fullpath, change
   %h3 User
-  %p= @commit.user.username
+  %p= @commit.user.name
   %h3 Datetime
   %p= @commit.datetime
   %h3 Message

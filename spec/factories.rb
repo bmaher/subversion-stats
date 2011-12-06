@@ -1,5 +1,5 @@
 Factory.define :user do |user|
-  user.username "Test User"
+  user.name "Test User"
 end
 
 Factory.sequence :userId do |n|

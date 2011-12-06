@@ -1,7 +1,7 @@
 = form_for(@user) do |f|
   = render "shared/error_messages", :f => f, :@object => f.object
   .field
-    %div= f.label :username
-    %div= f.text_field :username
+    %div= f.label :name
+    %div= f.text_field :name
   .actions
     %div= f.submit

@@ -1,9 +1,19 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe User do
   
   before(:each) do
-    @attr = { :username => "Example User" }
+    @attr = { :name => "Example User" }
   end
   
   it "should create a new instance given valid attributes" do
@@ -12,12 +22,12 @@ describe User do
   
   describe "validations" do
   
-    it "should require a username" do
-      User.new(@attr.merge(:username => "")).should_not be_valid
+    it "should require a name" do
+      User.new(@attr.merge(:name => "")).should_not be_valid
     end
     
-    it "should reject a blank username" do
-      User.new(@attr.merge(:username => "   ")).should_not be_valid
+    it "should reject a blank name" do
+      User.new(@attr.merge(:name => "   ")).should_not be_valid
     end
   end
   
@@ -33,14 +43,4 @@ describe User do
   end
   
 end
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id         :integer         not null, primary key
-#  username   :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
 

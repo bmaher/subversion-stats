@@ -8,7 +8,7 @@ describe "Users" do
       it "should not make a new user" do
         lambda do
           visit new_user_path
-          fill_in "Username", :with => ""
+          fill_in "Name", :with => ""
           click_button
           response.should render_template("users/new")
           response.should have_selector("div#error_explanation")
@@ -20,7 +20,7 @@ describe "Users" do
       it "should make a new user" do
         lambda do
           visit new_user_path
-          fill_in "Username", :with => "Test User"
+          fill_in "Name", :with => "Test User"
           click_button
           response.should have_selector("p", :content => "User was successfully created.")
           response.should render_template("users/show")

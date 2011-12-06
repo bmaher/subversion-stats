@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204230755) do
+ActiveRecord::Schema.define(:version => 20111206161526) do
 
   create_table "changes", :force => true do |t|
     t.integer  "revision"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20111204230755) do
   add_index "commits", ["datetime"], :name => "index_commits_on_datetime"
 
   create_table "users", :force => true do |t|
-    t.string   "username"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
