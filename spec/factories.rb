@@ -14,3 +14,12 @@ Factory.define :commit do |commit|
   commit.message      "message"
   commit.association  :user
 end
+
+Factory.define :change do |change|
+  change.revision     1
+  change.status       "A"
+  change.project_root "/target"
+  change.filepath     "/target/src/main"
+  change.fullpath     "/target/src/main/file.txt"
+  change.association  :commit
+end

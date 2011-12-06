@@ -1,83 +1,44 @@
 class ChangesController < ApplicationController
-  # GET /changes
-  # GET /changes.json
+
   def index
     @changes = Change.all.paginate(:page => params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @changes }
-    end
+    @title = "All changes"
   end
 
-  # GET /changes/1
-  # GET /changes/1.json
   def show
     @change = Change.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @change }
-    end
+    @title = "Change #{@change.fullpath}"
   end
 
-  # GET /changes/new
-  # GET /changes/new.json
   def new
     @change = Change.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @change }
-    end
+    @title = "Create change"
   end
 
-  # GET /changes/1/edit
   def edit
     @change = Change.find(params[:id])
+    @title = "Edit change"
   end
 
-  # POST /changes
-  # POST /changes.json
   def create
     @change = Change.new(params[:change])
 
-    respond_to do |format|
-      if @change.save
-        format.html { redirect_to @change, notice: 'Change was successfully created.' }
-        format.json { render json: @change, status: :created, location: @change }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
-      end
+    if @change.save
+      redirect_to @change, notice: 'Change was successfully created.'
+    else
+      @title = "Create change"
+      render action: "new"
     end
   end
 
-  # PUT /changes/1
-  # PUT /changes/1.json
   def update
     @change = Change.find(params[:id])
 
-    respond_to do |format|
-      if @change.update_attributes(params[:change])
-        format.html { redirect_to @change, notice: 'Change was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /changes/1
-  # DELETE /changes/1.json
-  def destroy
-    @change = Change.find(params[:id])
-    @change.destroy
-
-    respond_to do |format|
-      format.html { redirect_to changes_url }
-      format.json { head :ok }
+    if @change.update_attributes(params[:change])
+      redirect_to @change, notice: 'Change was successfully updated.'
+    else
+      @title = "Edit change"
+      render action: "edit"
     end
   end
 end
