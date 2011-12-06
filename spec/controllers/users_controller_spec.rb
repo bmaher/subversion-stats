@@ -7,7 +7,7 @@ describe UsersController do
     
     before(:each) do
       Factory(:user, :username => "user1")
-      30.times { Factory(:user, :username => Factory.next(:id)) }
+      30.times { Factory(:user, :username => Factory.next(:userId)) }
     end
 
     it "should be successful" do

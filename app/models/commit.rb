@@ -12,7 +12,7 @@
 #
 
 class Commit < ActiveRecord::Base
-  attr_accessible :revision, :datetime, :message
+  attr_accessible :revision, :user_id, :datetime, :message
   
   belongs_to  :user
   has_many    :changes

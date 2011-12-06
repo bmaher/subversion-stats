@@ -1,83 +1,44 @@
 class CommitsController < ApplicationController
-  # GET /commits
-  # GET /commits.json
+
   def index
     @commits = Commit.all.paginate(:page => params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @commits }
-    end
+    @title = "All commits"
   end
 
-  # GET /commits/1
-  # GET /commits/1.json
   def show
     @commit = Commit.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @commit }
-    end
+    @title = "Revision #{@commit.revision.to_s}"
   end
 
-  # GET /commits/new
-  # GET /commits/new.json
   def new
     @commit = Commit.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @commit }
-    end
+    @title = "Create commit"
   end
 
-  # GET /commits/1/edit
   def edit
     @commit = Commit.find(params[:id])
+    @title = "Edit commit"
   end
 
-  # POST /commits
-  # POST /commits.json
   def create
     @commit = Commit.new(params[:commit])
 
-    respond_to do |format|
-      if @commit.save
-        format.html { redirect_to @commit, notice: 'Commit was successfully created.' }
-        format.json { render json: @commit, status: :created, location: @commit }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @commit.errors, status: :unprocessable_entity }
-      end
+    if @commit.save
+      redirect_to @commit, notice: 'Commit was successfully created.'
+    else
+      @title = "Create commit"
+      render action: "new"
     end
   end
 
-  # PUT /commits/1
-  # PUT /commits/1.json
   def update
     @commit = Commit.find(params[:id])
 
-    respond_to do |format|
-      if @commit.update_attributes(params[:commit])
-        format.html { redirect_to @commit, notice: 'Commit was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @commit.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /commits/1
-  # DELETE /commits/1.json
-  def destroy
-    @commit = Commit.find(params[:id])
-    @commit.destroy
-
-    respond_to do |format|
-      format.html { redirect_to commits_url }
-      format.json { head :ok }
+    if @commit.update_attributes(params[:commit])
+      redirect_to @commit, notice: 'Commit was successfully updated.'
+    else
+      @title = "Edit commit"
+      render action: "edit"
     end
   end
 end

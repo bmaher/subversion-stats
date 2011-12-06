@@ -14,7 +14,7 @@
 #
 
 class Change < ActiveRecord::Base
-  attr_accessible :revision, :status, :project_root, :filepath, :fullpath
+  attr_accessible :revision, :status, :project_root, :filepath, :fullpath, :commit_id
   
   belongs_to :commit
   

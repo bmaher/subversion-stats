@@ -2,9 +2,11 @@ Factory.define :user do |user|
   user.username "Test User"
 end
 
-Factory.sequence :id do |n|
+Factory.sequence :userId do |n|
   "user#{n}"
 end
+
+Factory.sequence :revisionId
 
 Factory.define :commit do |commit|
   commit.revision     1234
