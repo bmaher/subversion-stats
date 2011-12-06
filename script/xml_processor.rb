@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require 'rubygems'
 require 'xml'
 
 file = File.open("./sample.xml")
