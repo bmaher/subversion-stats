@@ -63,6 +63,16 @@ describe UsersController do
        get :show, :id => @user.id
        response.should have_selector("h1", :content => @user.username)
      end
+     
+     it "should have the user's commits" do
+       user = Factory(:user)
+       user.commits.create!(:revision => 1,
+                            :datetime => "01/01/2011",
+                            :message => "message")
+                            
+       get :show, :id => user.id
+       response.should have_selector("li", :content => user.commits.first.revision.to_s)
+     end
    end
    
    describe "GET 'new'" do

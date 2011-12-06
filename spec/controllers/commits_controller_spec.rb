@@ -59,9 +59,36 @@ describe CommitsController do
       response.should have_selector("title", :content => "Revision #{@commit.revision.to_s}")
     end
     
-    it "should have the commits' revision number" do
+    it "should have the commit's revision number" do
       get :show, :id => @commit.id
       response.should have_selector("h1", :content => @commit.revision.to_s)
+    end
+    
+    it "should have the user's commits" do
+      commit = Factory(:commit)
+      commit.changes.create!(:revision => commit.revision, 
+                             :status => "A",
+                             :project_root => "/target",
+                             :filepath => "/target/src/main",
+                             :fullpath => "/taget/src/main/file.txt")
+                             
+      get :show, :id => commit.id
+      response.should have_selector("li", :content => commit.changes.first.fullpath)
+    end
+    
+    it "should have the commit's user's username" do
+      get :show, :id => @commit.id
+      response.should have_selector("div", :content => @commit.user.username)
+    end
+    
+    it "should have the commit's datetime" do
+      get :show, :id => @commit.id
+      response.should have_selector("div", :content => @commit.datetime)
+    end
+    
+    it "should have the commit's message" do
+      get :show, :id => @commit.id
+      response.should have_selector("div", :content => @commit.message)
     end
   end
   
