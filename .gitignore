@@ -15,4 +15,6 @@
 /tmp
 /.idea
 /webrat.log
-config/database.yml
+/config/database.yml
+/script/fc.svn.log.*
+
