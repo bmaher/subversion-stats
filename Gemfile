@@ -14,6 +14,7 @@ group :assets do
 end
 
 group :development do
+  gem 'thin'
   gem 'pry'
   gem 'annotate'
   gem 'libxml-ruby'
