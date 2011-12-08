@@ -21,6 +21,7 @@ group :development do
 end
 
 group :test do
+  gem 'ruby-prof'
   gem 'turn', '0.8.2', :require => false
   gem 'rspec-rails'
   gem 'webrat'
