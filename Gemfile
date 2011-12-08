@@ -18,6 +18,7 @@ group :development do
   gem 'pry'
   gem 'annotate'
   gem 'libxml-ruby'
+  gem 'capistrano'
 end
 
 group :test do
