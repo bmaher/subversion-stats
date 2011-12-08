@@ -6,6 +6,7 @@ gem 'haml'
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'will_paginate'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'
