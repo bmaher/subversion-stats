@@ -20,6 +20,8 @@ group :development do
   gem 'annotate'
   gem 'libxml-ruby'
   gem 'capistrano'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :test do
