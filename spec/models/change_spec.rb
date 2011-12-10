@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: changes
+#
+#  id           :integer         not null, primary key
+#  revision     :integer
+#  status       :string(255)
+#  project_root :string(255)
+#  filepath     :string(255)
+#  fullpath     :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  commit_id    :integer
+#
+
 require 'spec_helper'
 
 describe Change do
@@ -39,18 +54,3 @@ describe Change do
     end
   end
 end
-# == Schema Information
-#
-# Table name: changes
-#
-#  id           :integer         not null, primary key
-#  revision     :integer
-#  status       :string(255)
-#  project_root :string(255)
-#  filepath     :string(255)
-#  fullpath     :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  commit_id    :integer
-#
-

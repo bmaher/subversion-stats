@@ -41,6 +41,4 @@ describe User do
       @user.should respond_to(:commits)
     end
   end
-  
 end
-
