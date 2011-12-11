@@ -3,7 +3,7 @@ module ApplicationHelper
   require 'will_paginate/array'
     
   def title
-    base_title = "Subersion Stats"
+    base_title = "Subversion Stats"
     if @title.nil?
       base_title
     else
