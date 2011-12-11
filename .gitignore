@@ -19,3 +19,4 @@
 /script/fc.svn.log.*
 
 /config/newrelic.yml
+/config/initializers/secret_token.rb
