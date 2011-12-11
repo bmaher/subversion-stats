@@ -18,3 +18,4 @@
 /config/database.yml
 /script/fc.svn.log.*
 
+/config/newrelic.yml
