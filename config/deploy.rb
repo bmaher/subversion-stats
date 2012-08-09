@@ -3,6 +3,7 @@ set :domain,      "subversion-stats.com"
 
 set :scm,         "git"
 set :repository,  "git@github.com:bmaher/subversion-stats.git"
+set :ssh_options, :forward_agent => true
 
 set :user,        "deploy"
 set :deploy_to,   "/var/www/#{application}"
