@@ -1,9 +1,13 @@
 SubversionStats::Application.routes.draw do
+  get "stats/index"
+
   resources :changes
 
   resources :commits
 
   resources :users
+  
+  resources :stats
 
   get "home/index"
   root :to => "home#index"

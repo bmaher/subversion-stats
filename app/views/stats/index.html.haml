@@ -1,0 +1,8 @@
+%header
+  %h1= "Statistics"
+.users
+  %header
+    %h2= "Total commits for all users"
+  - @users.each do |user|
+    %li= "User: #{user.name}, Total Commits: #{total_commits_for(user)}"
+  
