@@ -10,7 +10,7 @@ test:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: subversion-stats_test
+  database: myapp_test
   pool: 5
   username: root
 
