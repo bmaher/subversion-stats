@@ -5,7 +5,6 @@ development:
   database: subversion-stats_development
   pool: 5
   username: root
-  password: password
 
 test:
   adapter: mysql
@@ -14,15 +13,6 @@ test:
   database: subversion-stats_test
   pool: 5
   username: root
-  password: password
-  
-ci:
-  adapter: mysql
-  encoding: utf8
-  reconnect: false
-  database: myapp_test
-  pool: 5
-  username: root  
 
 production:
   adapter: mysql
@@ -31,4 +21,3 @@ production:
   database: subversion-stats_production
   pool: 5
   username: root
-  password: password
