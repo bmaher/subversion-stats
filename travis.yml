@@ -1,5 +1,5 @@
 before_script:
-  - mysql -e 'create database subversion-stats_test;'
+  - mysql -u root -e 'create database subversion-stats_test;'
 
 language: ruby
 rvm:
