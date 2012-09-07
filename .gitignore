@@ -9,6 +9,7 @@
 /tmp
 /.idea
 /webrat.log
+/script/log.xml
 
 # Ignore private files
 /private
