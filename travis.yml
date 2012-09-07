@@ -1,3 +1,4 @@
 language: ruby
 rvm: 1.9.3
-before_script: mysql -e 'create database myapp_test;'
+before_script:
+    - mysql -e 'create database subversion_stats_test;'
