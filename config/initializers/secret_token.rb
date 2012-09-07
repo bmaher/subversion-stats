@@ -1,0 +1,1 @@
+SubversionStats::Application.config.secret_token = '52e0fb1d1bf38499ddf4d5f9f3076cbdcb84'

@@ -12,4 +12,3 @@
 
 # Ignore private files
 /private
-/config/initializers/secret_token.rb
