@@ -62,7 +62,7 @@ class Import
   end
 
   def parse_xml
-    file = File.open("./sample.xml")
+    file = File.open("./log.xml")
     raw_xml = file.read
     source = XML::Parser.string(raw_xml)
     return source.parse
@@ -74,7 +74,7 @@ class Import
   
   def connect_to_database
     @mysql = Mysql.init()
-    @mysql.connect('localhost', 'root', 'password')
+    @mysql.connect('localhost', 'root', '')
     @mysql.select_db('subversion-stats_development')
   end
 
