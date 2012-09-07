@@ -2,7 +2,7 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: subversion_stats_development
+  database: subversion-stats_development
   pool: 5
   username: root
 
@@ -10,7 +10,7 @@ test:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: subversion_stats_test
+  database: subversion-stats_test
   pool: 5
   username: root
 
@@ -18,6 +18,6 @@ production:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: subversion_stats_production
+  database: subversion-stats_production
   pool: 5
   username: root

@@ -1,0 +1,3 @@
+before_script: mysql -e 'create database subversion-stats_test;'
+language: ruby
+rvm: 1.9.3
