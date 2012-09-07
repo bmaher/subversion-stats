@@ -21,3 +21,18 @@
       %ul
         - commits_by_year_for(user).each do |year|
           %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
+.monthly
+  %header
+    %h2= "All commits by month"
+  %ul
+    - commits_by_month.each do |month|
+      %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
+.user-monthly
+  %header
+    %h2= "Monthly commits by user"
+  - @users.each do |user|
+    %ul
+      %li= "User: #{user.name}"
+      %ul
+        - commits_by_month_for(user).each do |month|
+          %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
