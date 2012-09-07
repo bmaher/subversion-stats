@@ -3,13 +3,15 @@
 .users
   %header
     %h2= "Total commits for all users"
-  - @users.each do |user|
-    %li= "User: #{user.name}, Total Commits: #{total_commits_for(user)}"
+  %ul
+    - @users.each do |user|
+      %li= "User: #{user.name}, Total Commits: #{total_commits_for(user)}"
 .yearly
   %header
     %h2= "All commits by year"
-  - commits_by_year.each do |year|
-    %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
+  %ul
+    - commits_by_year.each do |year|
+      %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 .user-yearly
   %header
     %h2= "Yearly commits by user"
