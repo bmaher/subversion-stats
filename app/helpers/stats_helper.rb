@@ -7,4 +7,8 @@ module StatsHelper
   def commits_by_year
     Commit.count(:all, :group => "Year(datetime)")
   end
+  
+  def commits_by_year_for(user)
+    Commit.count(:conditions => "user_id = #{user.id}", :group => "Year(datetime)")
+  end
 end
