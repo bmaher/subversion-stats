@@ -3,6 +3,10 @@ Factory.define :project do |project|
   project.description "my description"
 end
 
+Factory.sequence :projectId do |n|
+  "project#{n}"
+end
+
 Factory.define :user do |user|
   user.name "Test User"
   user.association :project

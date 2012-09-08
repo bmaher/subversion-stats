@@ -1,0 +1,10 @@
+= form_for(@project) do |f|
+  = render "shared/error_messages", :f => f, :@object => f.object
+  .field
+    %div= f.label :name
+    %div= f.text_field :name
+  .field
+    %div= f.label :description
+    %div= f.text_field :description
+  .actions
+    %div= f.submit

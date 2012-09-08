@@ -1,0 +1,10 @@
+%p#id= notice
+.user
+  %h1= "Project: #{@project.name}"
+  .users
+    %h3 Users
+    %ul.users
+      - users_for(@project).each do |user|
+        %li= link_to user.name, user
+= link_to 'Edit', edit_project_path(@project)
+= link_to 'Back', projects_path

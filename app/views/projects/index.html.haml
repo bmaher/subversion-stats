@@ -1,0 +1,7 @@
+%h1 All projects
+= will_paginate
+%ul.projects
+  - @projects.each do |project|
+    %li= link_to project.name, project
+= link_to 'New Project', new_project_path
+= will_paginate
