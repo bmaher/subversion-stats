@@ -9,9 +9,10 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :project_id
   
-  has_many :commits
+  belongs_to :project
+  has_many   :commits
   
   validates :name, :presence => true
 end

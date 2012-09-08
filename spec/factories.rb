@@ -1,5 +1,11 @@
+Factory.define :project do |project|
+  project.name "my project"
+  project.description "my description"
+end
+
 Factory.define :user do |user|
   user.name "Test User"
+  user.association :project
 end
 
 Factory.sequence :userId do |n|
@@ -22,10 +28,4 @@ Factory.define :change do |change|
   change.filepath     "/target/src/main"
   change.fullpath     "/target/src/main/file.txt"
   change.association  :commit
-end
-
-Factory.define :project do |project|
-  project.name        "project"
-  project.description "my project"
-  project.association :user 
 end

@@ -13,11 +13,12 @@ require 'spec_helper'
 describe User do
   
   before(:each) do
+    @project = Factory(:project)
     @attr = { :name => "Example User" }
   end
   
   it "should create a new instance given valid attributes" do
-    User.create!(@attr)
+    @project.users.create!(@attr)
   end
   
   describe "validations" do
@@ -28,6 +29,21 @@ describe User do
     
     it "should reject a blank name" do
       User.new(@attr.merge(:name => "   ")).should_not be_valid
+    end
+  end
+  
+  describe "project associations" do
+    
+    before(:each) do
+      @user = @project.users.create(@attr)
+    end
+    
+    it "should have a project attribute" do
+     @user.should respond_to(:project) 
+    end
+    
+    it "should have the correct project" do
+      @user.project_id = @project.id
     end
   end
   

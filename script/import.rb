@@ -43,10 +43,17 @@ class Import
     authors = @mysql.query("SELECT name FROM users WHERE name = '#{author}'")
     if authors.fetch_row.nil?
       now = get_current_time()
-      @mysql.query("INSERT INTO users (name, created_at, updated_at) VALUES('#{author}', '#{now}', '#{now}');")
+      @mysql.query("INSERT INTO users (name, created_at, updated_at, project_id) VALUES('#{author}', '#{now}', '#{now}', '#{@project}');")
     end
 
     revision(author)
+  end
+  
+  def create_project
+    now = get_current_time()
+    name = 'Google V8'
+    @mysql.query("INSERT INTO projects (name, description, created_at, updated_at) VALUES('#{name}', 'Google Chrome V8 Engine', '#{now}', '#{now}');")
+    @project = @mysql.query("SELECT id FROM projects WHERE name = '#{name}'").fetch_row[0]
   end
   
   def get_current_time
@@ -81,6 +88,7 @@ class Import
   if __FILE__ == $PROGRAM_NAME
     this = Import.new()
     this.connect_to_database()
+    this.create_project()
     this.import_entries()
     this.disconnect_from_database()
   end
