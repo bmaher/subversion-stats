@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908135625) do
+ActiveRecord::Schema.define(:version => 20120908143313) do
 
   create_table "changes", :force => true do |t|
     t.integer  "revision"
@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(:version => 20120908135625) do
     t.integer  "commit_id"
   end
 
-  add_index "changes", ["filepath"], :name => "index_changes_on_filepath"
-  add_index "changes", ["project_root"], :name => "index_changes_on_project_root"
+  add_index "changes", ["commit_id"], :name => "index_changes_on_commit_id"
 
   create_table "commits", :force => true do |t|
     t.integer  "revision"
@@ -37,11 +36,11 @@ ActiveRecord::Schema.define(:version => 20120908135625) do
   end
 
   add_index "commits", ["datetime"], :name => "index_commits_on_datetime"
+  add_index "commits", ["user_id"], :name => "index_commits_on_user_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.integer  "user"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,6 +49,9 @@ ActiveRecord::Schema.define(:version => 20120908135625) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
+
+  add_index "users", ["project_id"], :name => "index_users_on_project_id"
 
 end
