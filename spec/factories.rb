@@ -23,3 +23,9 @@ Factory.define :change do |change|
   change.fullpath     "/target/src/main/file.txt"
   change.association  :commit
 end
+
+Factory.define :project do |project|
+  project.name        "project"
+  project.description "my project"
+  project.association :user 
+end
