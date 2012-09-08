@@ -6,8 +6,8 @@ describe ProjectsController do
   describe "GET 'index'" do
     
     before(:each) do
-      Factory(:project, :name => "project1")
-      30.times { Factory(:project, :name => Factory.next(:projectId)) }
+      FactoryGirl.create(:project, :name => "project1")
+      30.times { FactoryGirl.create(:project, :name => FactoryGirl.generate(:projectId)) }
     end
 
     it "should be successful" do
@@ -41,7 +41,7 @@ describe ProjectsController do
   describe "GET 'show'" do
     
     before(:each) do
-      @project = Factory(:project)
+      @project = FactoryGirl.create(:project)
     end
     
     it "should be successful" do
@@ -132,7 +132,7 @@ describe ProjectsController do
   describe "GET 'edit'" do
   
     before(:each) do
-      @project = Factory(:project)
+      @project = FactoryGirl.create(:project)
     end
   
     it "should be successful" do
@@ -149,7 +149,7 @@ describe ProjectsController do
   describe "PUT 'update'" do
   
     before(:each) do
-      @project = Factory(:project)
+      @project = FactoryGirl.create(:project)
     end
   
     describe "failure" do

@@ -6,8 +6,8 @@ describe UsersController do
   describe "GET 'index'" do
     
     before(:each) do
-      Factory(:user, :name => "user1")
-      30.times { Factory(:user, :name => Factory.next(:userId)) }
+      FactoryGirl.create(:user, :name => "user1")
+      30.times { FactoryGirl.create(:user, :name => FactoryGirl.generate(:userId)) }
     end
 
     it "should be successful" do
@@ -41,7 +41,7 @@ describe UsersController do
    describe "GET 'show'" do
      
      before(:each) do
-       @user = Factory(:user)
+       @user = FactoryGirl.create(:user)
      end
      
      it "should be successful" do
@@ -65,7 +65,7 @@ describe UsersController do
      end
      
      it "should have the user's commits" do
-       user = Factory(:user)
+       user = FactoryGirl.create(:user)
        user.commits.create!(:revision => 1,
                             :datetime => "01/01/2011",
                             :message => "message")
@@ -135,7 +135,7 @@ describe UsersController do
    describe "GET 'edit'" do
    
      before(:each) do
-       @user = Factory(:user)
+       @user = FactoryGirl.create(:user)
      end
    
      it "should be successful" do
@@ -152,7 +152,7 @@ describe UsersController do
    describe "PUT 'update'" do
    
      before(:each) do
-       @user = Factory(:user)
+       @user = FactoryGirl.create(:user)
      end
    
      describe "failure" do

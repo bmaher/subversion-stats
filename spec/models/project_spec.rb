@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
   
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     @attr = { :name        => "Example Project",
               :description => "Example Description" }
   end

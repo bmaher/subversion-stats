@@ -1,35 +1,37 @@
-Factory.define :project do |project|
-  project.name "my project"
-  project.description "my description"
-end
-
-Factory.sequence :projectId do |n|
-  "project#{n}"
-end
-
-Factory.define :user do |user|
-  user.name "Test User"
-  user.association :project
-end
-
-Factory.sequence :userId do |n|
-  "user#{n}"
-end
-
-Factory.sequence :revisionId
-
-Factory.define :commit do |commit|
-  commit.revision     1234
-  commit.datetime     "01/01/2011"
-  commit.message      "message"
-  commit.association  :user
-end
-
-Factory.define :change do |change|
-  change.revision     1
-  change.status       "A"
-  change.project_root "/target"
-  change.filepath     "/target/src/main"
-  change.fullpath     "/target/src/main/file.txt"
-  change.association  :commit
+FactoryGirl.define do
+  factory :project do
+    name        "project name"
+    description "project description"
+  end
+  
+  factory :user do
+    name        "test user"
+    association :project
+  end
+  
+  factory :commit do
+    revision     1234
+    datetime     "01/01/2011"
+    message      "message"
+    association  :user
+  end
+  
+  factory :change do
+    revision     1
+    status       "A"
+    project_root "/target"
+    filepath     "/target/src/main"
+    fullpath     "/target/src/main/file.txt"
+    association  :commit
+  end
+  
+  sequence :projectId do |n|
+    "project#{n}"
+  end
+  
+  sequence :userId do |n|
+    "user#{n}"
+  end
+  
+  sequence :revisionId
 end

@@ -22,7 +22,7 @@ describe "Commits" do
     describe "success" do
       it "should make a new commit" do
         lambda do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           visit new_commit_path
           fill_in "Revision", :with => 1234
           fill_in "User", :with => user.id

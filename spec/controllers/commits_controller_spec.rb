@@ -6,8 +6,8 @@ describe CommitsController do
   describe "GET 'index'" do
     
     before(:each) do
-      Factory(:commit, :revision => 1)
-      30.times { Factory(:commit, :revision => Factory.next(:revisionId)) }
+      FactoryGirl.create(:commit, :revision => 1)
+      30.times { FactoryGirl.create(:commit, :revision => FactoryGirl.generate(:revisionId)) }
     end
     
     it "should be successful" do
@@ -41,7 +41,7 @@ describe CommitsController do
   describe "GET 'show'" do
     
     before(:each) do
-      @commit = Factory(:commit)
+      @commit = FactoryGirl.create(:commit)
     end
     
     it "should be successful" do
@@ -65,7 +65,7 @@ describe CommitsController do
     end
     
     it "should have the user's commits" do
-      commit = Factory(:commit)
+      commit = FactoryGirl.create(:commit)
       commit.changes.create!(:revision => commit.revision, 
                              :status => "A",
                              :project_root => "/target",
@@ -152,7 +152,7 @@ describe CommitsController do
   describe "GET 'edit'" do
   
     before(:each) do
-      @commit = Factory(:commit)
+      @commit = FactoryGirl.create(:commit)
     end
   
     it "should be successful" do
@@ -169,7 +169,7 @@ describe CommitsController do
   describe "PUT 'update'" do
   
     before(:each) do
-      @commit = Factory(:commit)
+      @commit = FactoryGirl.create(:commit)
     end
   
     describe "failure" do

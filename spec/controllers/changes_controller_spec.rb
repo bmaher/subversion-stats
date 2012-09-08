@@ -6,8 +6,8 @@ describe ChangesController do
   describe "GET 'index'" do
     
     before(:each) do
-      Factory(:change, :revision => 1)
-      30.times { Factory(:change, :revision => Factory.next(:revisionId)) }
+      FactoryGirl.create(:change, :revision => 1)
+      30.times { FactoryGirl.create(:change, :revision => FactoryGirl.generate(:revisionId)) }
     end
     
     it "should be successful" do
@@ -41,7 +41,7 @@ describe ChangesController do
   describe "GET 'show'" do
     
     before(:each) do
-      @change = Factory(:change)
+      @change = FactoryGirl.create(:change)
     end
     
     it "should be successful" do
@@ -155,7 +155,7 @@ describe ChangesController do
   describe "GET 'edit'" do
   
     before(:each) do
-      @change = Factory(:change)
+      @change = FactoryGirl.create(:change)
     end
   
     it "should be successful" do
@@ -172,7 +172,7 @@ describe ChangesController do
   describe "PUT 'update'" do
   
     before(:each) do
-      @change = Factory(:change)
+      @change = FactoryGirl.create(:change)
     end
   
     describe "failure" do

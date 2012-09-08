@@ -21,7 +21,6 @@ group :development do
   gem 'libxml-ruby'
   gem 'capistrano'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
 end
 
 group :test do

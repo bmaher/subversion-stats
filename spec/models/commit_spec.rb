@@ -17,7 +17,7 @@ describe Commit do
   
   before(:each) do
     
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     
     @attr = { :revision => 1234,
               :datetime => "01/01/2011",

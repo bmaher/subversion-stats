@@ -18,7 +18,7 @@ require 'spec_helper'
 describe Change do
   
   before(:each) do
-    @commit = Factory(:commit)
+    @commit = FactoryGirl.create(:commit)
       
     @attr = { :revision     => @commit.revision,
               :status       => "A",
