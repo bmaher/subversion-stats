@@ -1,5 +1,13 @@
 module StatsHelper
   
+  def total_commits_for_project(project)
+    count = 0
+    project.users.find_all.each do |user|
+      count += total_commits_for(user)
+    end
+    return count
+  end
+  
   def total_commits_for(user)
     Commit.find_all_by_user_id(user).count
   end
