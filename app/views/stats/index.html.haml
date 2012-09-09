@@ -30,12 +30,15 @@
 .user-yearly
   %header
     %h2= "Yearly commits by user"
-  - @users.each do |user|
+  - @projects.each do |project|
     %ul
-      %li= "User: #{user.name}"
-      %ul
-        - commits_by_year_for(user).each do |year|
-          %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
+      %header
+        %h3= "Project #{project.name}"
+      - users_for_project(project).each do |user|
+        %li= "User: #{user.name}"
+        %ul
+          - commits_by_year_for(user).each do |year|
+            %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 
 .monthly
   %header
