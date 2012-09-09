@@ -1,7 +1,7 @@
 module StatsHelper
   
   def users_for(project)
-    project.users.find_all
+    User.find_all_by_project_id(project)
   end
   
   def total_commits_for(user)
