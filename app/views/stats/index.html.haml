@@ -5,7 +5,7 @@
     %h2= "Total commits for all projects"
   %ul
     - @projects.each do |project|
-      %li= "Project: #{project.name}, Total Commits: #{commits_by_project(project)}"
+      %li= "Project: #{project.name}, Total Commits: #{commits_by(project)}"
 
 .users
   %header
@@ -14,7 +14,7 @@
     %ul
       %header
         %h3= "Project: #{project.name}"
-      - users_for_project(project).each do |user|
+      - users_for(project).each do |user|
         %li= "User: #{user.name}, Total Commits: #{total_commits_for(user)}"
 
 .yearly
@@ -24,7 +24,7 @@
     %ul
       %header
         %h3= "Project: #{project.name}"
-      - commits_by_year_for_project(project).each do |year|
+      - yearly_commits_for(project).each do |year|
         %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 
 .user-yearly
@@ -34,7 +34,7 @@
     %ul
       %header
         %h3= "Project #{project.name}"
-      - users_for_project(project).each do |user|
+      - users_for(project).each do |user|
         %li= "User: #{user.name}"
         %ul
           - commits_by_year_for(user).each do |year|
@@ -47,15 +47,18 @@
     %ul
       %header
         %h3= "Project #{project.name}"
-      - commits_by_month_for_project(project).each do |month|
+      - monthly_commits_for(project).each do |month|
         %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
 
 .user-monthly
   %header
     %h2= "Monthly commits by user"
-  - @users.each do |user|
+  - @projects.each do |project|
     %ul
-      %li= "User: #{user.name}"
-      %ul
-        - commits_by_month_for(user).each do |month|
-          %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
+      %header
+        %h3= "Project #{project.name}"
+      - users_for(project).each do |user|
+        %li= "User: #{user.name}"
+        %ul
+          - commits_by_month_for(user).each do |month|
+            %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
