@@ -43,9 +43,12 @@
 .monthly
   %header
     %h2= "All commits by month"
-  %ul
-    - commits_by_month.each do |month|
-      %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
+  - @projects.each do |project|
+    %ul
+      %header
+        %h3= "Project #{project.name}"
+      - commits_by_month_for_project(project).each do |month|
+        %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
 
 .user-monthly
   %header
