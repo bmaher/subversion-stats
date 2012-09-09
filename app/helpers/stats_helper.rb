@@ -1,19 +1,27 @@
 module StatsHelper
   
-  def total_commits_for_project(project)
-    count = 0
-    project.users.find_all.each do |user|
-      count += total_commits_for(user)
-    end
-    return count
+  def users_for_project(project)
+    project.users.find_all
   end
   
   def total_commits_for(user)
     Commit.find_all_by_user_id(user).count
   end
   
-  def commits_by_year
-    Commit.count(:all, :group => "Year(datetime)")
+  def commits_by_project(project)
+    count = 0
+    users_for_project(project).each do |user|
+      count += total_commits_for(user)
+    end
+    return count
+  end
+  
+  def commits_by_year_for_project(project)
+    years = Array.new
+    users_for_project(project).each do |user|
+      years << commits_by_year_for(user)
+    end
+    years.inject{ |year, count| year.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
   end
   
   def commits_by_year_for(user)
