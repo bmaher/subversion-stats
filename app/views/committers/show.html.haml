@@ -1,0 +1,10 @@
+%p#id= notice
+.committer
+  %h1= "Committer: #{@committer.name}"
+  .commits
+    %h3 Commits
+    %ul.commits
+      - commits_for(@committer).each do |commit|
+        %li= link_to commit.revision, commit
+= link_to 'Edit', edit_committer_path(@committer)
+= link_to 'Back', committers_path

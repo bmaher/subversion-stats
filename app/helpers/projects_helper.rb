@@ -1,6 +1,6 @@
 module ProjectsHelper
   
-  def users_for(project)
-    User.find_all_by_project_id(project)
+  def committers_for(project)
+    committer.find_all_by_project_id(project)
   end
 end

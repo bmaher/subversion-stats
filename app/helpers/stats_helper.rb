@@ -1,43 +1,43 @@
 module StatsHelper
   
-  def users_for(project)
-    User.find_all_by_project_id(project)
+  def committers_for(project)
+    Committer.find_all_by_project_id(project)
   end
   
-  def total_commits_for(user)
-    Commit.find_all_by_user_id(user).count
+  def total_commits_for(committer)
+    Commit.find_all_by_committer_id(committer).count
   end
   
   def commits_by(project)
     count = 0
-    users_for(project).each do |user|
-      count += total_commits_for(user)
+    committers_for(project).each do |committer|
+      count += total_commits_for(committer)
     end
     return count
   end
   
   def yearly_commits_for(project)
     years = Array.new
-    users_for(project).each do |user|
-      years << commits_by_year_for(user)
+    committers_for(project).each do |committer|
+      years << commits_by_year_for(committer)
     end
     years.inject{ |year, count| year.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
   end
   
-  def commits_by_year_for(user)
-    Commit.count(:conditions => "user_id = #{user.id}", :group => "Year(datetime)")
+  def commits_by_year_for(committer)
+    Commit.count(:conditions => "committer_id = #{committer.id}", :group => "Year(datetime)")
   end
   
   def monthly_commits_for(project)
     months = Array.new
-    users_for(project).each do |user|
-      months << commits_by_month_for(user)
+    committers_for(project).each do |committer|
+      months << commits_by_month_for(committer)
     end
     months.inject{ |months, count| months.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
   end
   
-  def commits_by_month_for(user)
-    Commit.count(:conditions => "user_id = #{user.id}", :group => "Month(datetime)")
+  def commits_by_month_for(committer)
+    Commit.count(:conditions => "committer_id = #{committer.id}", :group => "Month(datetime)")
   end
   
   def month_name(id)

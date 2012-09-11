@@ -1,10 +1,10 @@
 %p#id= notice
-.user
+.committer
   %h1= "Project: #{@project.name}"
-  .users
-    %h3 Users
-    %ul.users
-      - users_for(@project).each do |user|
-        %li= link_to user.name, user
+  .committers
+    %h3 committers
+    %ul.committers
+      - committers_for(@project).each do |committer|
+        %li= link_to committer.name, committer
 = link_to 'Edit', edit_project_path(@project)
 = link_to 'Back', projects_path

@@ -1,0 +1,7 @@
+%h1 All committers
+= will_paginate
+%ul.committers
+  - @committers.each do |committer|
+    %li= link_to committer.name, committer
+= link_to 'New Committer', new_committer_path
+= will_paginate

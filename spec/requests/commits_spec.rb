@@ -9,7 +9,7 @@ describe "Commits" do
         lambda do
           visit new_commit_path
           fill_in "Revision", :with => ""
-          fill_in "User", :with => ""
+          fill_in "committer", :with => ""
           fill_in "Datetime", :with => ""
           fill_in "Message", :with => ""                              
           click_button
@@ -22,10 +22,10 @@ describe "Commits" do
     describe "success" do
       it "should make a new commit" do
         lambda do
-          user = FactoryGirl.create(:user)
+          committer = FactoryGirl.create(:committer)
           visit new_commit_path
           fill_in "Revision", :with => 1234
-          fill_in "User", :with => user.id
+          fill_in "committer", :with => committer.id
           fill_in "Datetime", :with => "01/01/2011"
           fill_in "Message", :with => "Message"
           click_button

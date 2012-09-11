@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: committers
 #
 #  id         :integer         not null, primary key
 #  name       :string(255)
@@ -8,7 +8,7 @@
 #  updated_at :datetime
 #
 
-class User < ActiveRecord::Base
+class Committer < ActiveRecord::Base
   attr_accessible :name, :project_id
   
   belongs_to :project

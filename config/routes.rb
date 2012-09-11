@@ -5,7 +5,7 @@ SubversionStats::Application.routes.draw do
 
   resources :commits
 
-  resources :users
+  resources :committers
   
   resources :stats
   

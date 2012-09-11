@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: committers
 #
 #  id         :integer         not null, primary key
 #  name       :string(255)
@@ -10,51 +10,51 @@
 
 require 'spec_helper'
 
-describe User do
+describe Committer do
   
   before(:each) do
     @project = FactoryGirl.create(:project)
-    @attr = { :name => "Example User" }
+    @attr = { :name => "Example committer" }
   end
   
   it "should create a new instance given valid attributes" do
-    @project.users.create!(@attr)
+    @project.committers.create!(@attr)
   end
   
   describe "validations" do
   
     it "should require a name" do
-      User.new(@attr.merge(:name => "")).should_not be_valid
+      Committer.new(@attr.merge(:name => "")).should_not be_valid
     end
     
     it "should reject a blank name" do
-      User.new(@attr.merge(:name => "   ")).should_not be_valid
+      Committer.new(@attr.merge(:name => "   ")).should_not be_valid
     end
   end
   
   describe "project associations" do
     
     before(:each) do
-      @user = @project.users.create(@attr)
+      @committer = @project.committers.create(@attr)
     end
     
     it "should have a project attribute" do
-     @user.should respond_to(:project) 
+     @committer.should respond_to(:project) 
     end
     
     it "should have the correct project" do
-      @user.project_id = @project.id
+      @committer.project_id = @project.id
     end
   end
   
   describe "commit associations" do
     
     before(:each) do
-      @user = User.create(@attr)
+      @committer = Committer.create(@attr)
     end
     
     it "should have a commits attribute" do
-      @user.should respond_to(:commits)
+      @committer.should respond_to(:commits)
     end
   end
 end

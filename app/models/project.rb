@@ -12,7 +12,7 @@
 class Project < ActiveRecord::Base
   attr_accessible :name, :description
   
-  has_many :users
+  has_many :committers
   
   validates :name,        :presence => true
   validates :description, :presence => true

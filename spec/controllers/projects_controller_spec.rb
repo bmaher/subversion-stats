@@ -64,11 +64,11 @@ describe ProjectsController do
       response.should have_selector("h1", :content => @project.name)
     end
     
-    it "should have the project's users" do
-      @project.users.create!(:name => "test user")
+    it "should have the project's committers" do
+      @project.committers.create!(:name => "test committer")
                            
       get :show, :id => @project.id
-      response.should have_selector("li", :content => @project.users.find_first.name)
+      response.should have_selector("li", :content => @project.committers.find_first.name)
     end
   end
   

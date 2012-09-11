@@ -64,7 +64,7 @@ describe CommitsController do
       response.should have_selector("h1", :content => @commit.revision.to_s)
     end
     
-    it "should have the user's commits" do
+    it "should have the committer's commits" do
       commit = FactoryGirl.create(:commit)
       commit.changes.create!(:revision => commit.revision, 
                              :status => "A",
@@ -76,9 +76,9 @@ describe CommitsController do
       response.should have_selector("li", :content => commit.changes.first.fullpath)
     end
     
-    it "should have the commit's user's name" do
+    it "should have the commit's committer's name" do
       get :show, :id => @commit.id
-      response.should have_selector("div", :content => @commit.user.name)
+      response.should have_selector("div", :content => @commit.committer.name)
     end
     
     it "should have the commit's datetime" do
@@ -110,7 +110,7 @@ describe CommitsController do
     describe "failure" do
       
       before(:each) do
-        @attr = { :revision => "", :user_id => "", :datetime => "", :message => "" }
+        @attr = { :revision => "", :committer_id => "", :datetime => "", :message => "" }
       end
       
       it "should have the right title" do
@@ -133,7 +133,7 @@ describe CommitsController do
     describe "success" do
       
       before(:each) do
-        @attr = { :revision => 1, :user_id => 1, :datetime => "01/01/2011", :message => "message" }
+        @attr = { :revision => 1, :committer_id => 1, :datetime => "01/01/2011", :message => "message" }
       end
       
       it "should create a commit" do
@@ -175,7 +175,7 @@ describe CommitsController do
     describe "failure" do
   
       before(:each) do
-        @attr = { :revision => "", :user_id => "", :datetime => "", :message => "" }
+        @attr = { :revision => "", :committer_id => "", :datetime => "", :message => "" }
       end
   
       it "should render the 'edit' page" do
@@ -192,7 +192,7 @@ describe CommitsController do
     describe "success" do
   
       before(:each) do
-        @attr = { :revision => 1, :user_id => 1, :datetime => "01/01/2011", :message => "message" }
+        @attr = { :revision => 1, :committer_id => 1, :datetime => "01/01/2011", :message => "message" }
       end
   
       it "should change the commits' attributes" do

@@ -7,15 +7,15 @@
     - @projects.each do |project|
       %li= "Project: #{project.name}, Total Commits: #{commits_by(project)}"
 
-.users
+.committers
   %header
-    %h2= "Total commits for all users"
+    %h2= "Total commits for all committers"
   - @projects.each do |project|
     %ul
       %header
         %h3= "Project: #{project.name}"
-      - users_for(project).each do |user|
-        %li= "User: #{user.name}, Total Commits: #{total_commits_for(user)}"
+      - committers_for(project).each do |committer|
+        %li= "Committer: #{committer.name}, Total Commits: #{total_commits_for(committer)}"
 
 .yearly
   %header
@@ -27,17 +27,17 @@
       - yearly_commits_for(project).each do |year|
         %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 
-.user-yearly
+.committer-yearly
   %header
-    %h2= "Yearly commits by user"
+    %h2= "Yearly commits by committer"
   - @projects.each do |project|
     %ul
       %header
         %h3= "Project #{project.name}"
-      - users_for(project).each do |user|
-        %li= "User: #{user.name}"
+      - committers_for(project).each do |committer|
+        %li= "Committer: #{committer.name}"
         %ul
-          - commits_by_year_for(user).each do |year|
+          - commits_by_year_for(committer).each do |year|
             %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 
 .monthly
@@ -50,15 +50,15 @@
       - monthly_commits_for(project).each do |month|
         %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
 
-.user-monthly
+.committer-monthly
   %header
-    %h2= "Monthly commits by user"
+    %h2= "Monthly commits by committer"
   - @projects.each do |project|
     %ul
       %header
         %h3= "Project #{project.name}"
-      - users_for(project).each do |user|
-        %li= "User: #{user.name}"
+      - committers_for(project).each do |committer|
+        %li= "Committer: #{committer.name}"
         %ul
-          - commits_by_month_for(user).each do |month|
+          - commits_by_month_for(committer).each do |month|
             %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"

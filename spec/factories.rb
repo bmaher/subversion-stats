@@ -4,8 +4,8 @@ FactoryGirl.define do
     description "project description"
   end
   
-  factory :user do
-    name        "test user"
+  factory :committer do
+    name        "test committer"
     association :project
   end
   
@@ -13,7 +13,7 @@ FactoryGirl.define do
     revision     1234
     datetime     "01/01/2011"
     message      "message"
-    association  :user
+    association  :committer
   end
   
   factory :change do
@@ -29,8 +29,8 @@ FactoryGirl.define do
     "project#{n}"
   end
   
-  sequence :userId do |n|
-    "user#{n}"
+  sequence :committerId do |n|
+    "committer#{n}"
   end
   
   sequence :revisionId

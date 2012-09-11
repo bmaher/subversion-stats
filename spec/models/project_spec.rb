@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
   
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @committer = FactoryGirl.create(:committer)
     @attr = { :name        => "Example Project",
               :description => "Example Description" }
   end
@@ -31,14 +31,14 @@ describe Project do
     end
   end
   
-  describe "user associations" do
+  describe "committer associations" do
     
     before(:each) do
       @project = Project.create(@attr)
     end
     
-    it "should have a users attribute" do
-      @project.should respond_to(:users)
+    it "should have a committers attribute" do
+      @project.should respond_to(:committers)
     end
   end
 end

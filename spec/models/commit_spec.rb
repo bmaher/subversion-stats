@@ -4,7 +4,7 @@
 #
 #  id         :integer         not null, primary key
 #  revision   :integer
-#  user_id    :integer
+#  committer_id    :integer
 #  datetime   :string(255)
 #  message    :string(255)
 #  created_at :datetime
@@ -17,7 +17,7 @@ describe Commit do
   
   before(:each) do
     
-    @user = FactoryGirl.create(:user)
+    @committer = FactoryGirl.create(:committer)
     
     @attr = { :revision => 1234,
               :datetime => "01/01/2011",
@@ -25,7 +25,7 @@ describe Commit do
   end
   
   it "should create a new instance given valid attributes" do
-    @user.commits.create!(@attr)
+    @committer.commits.create!(@attr)
   end
   
   describe "validations" do
@@ -34,8 +34,8 @@ describe Commit do
       Commit.new(@attr.merge(:revision => "")).should_not be_valid
     end
     
-    it "should require a user_id" do
-      Commit.new(@attr.merge(:user_id => "")).should_not be_valid
+    it "should require a committer_id" do
+      Commit.new(@attr.merge(:committer_id => "")).should_not be_valid
     end
     
     it "should require a datetime" do
@@ -47,26 +47,26 @@ describe Commit do
     end
   end
   
-  describe "user associations" do
+  describe "committer associations" do
     
     before(:each) do
-      @commit = @user.commits.create(@attr)
+      @commit = @committer.commits.create(@attr)
     end
     
-    it "should have a user attribute" do
-      @commit.should respond_to(:user)
+    it "should have a committer attribute" do
+      @commit.should respond_to(:committer)
     end
     
-    it "should have the correct user" do
-      @commit.user_id.should == @user.id
-      @commit.user.should == @user
+    it "should have the correct committer" do
+      @commit.committer_id.should == @committer.id
+      @commit.committer.should == @committer
     end
   end
   
   describe "change association" do
     
     before(:each) do
-      @commit = @user.commits.create(@attr)
+      @commit = @committer.commits.create(@attr)
     end
     
     it "should have a change attribute" do

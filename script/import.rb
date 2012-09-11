@@ -31,8 +31,8 @@ class Import
     revisions = @mysql.query("SELECT revision FROM commits WHERE revision = '#{revisionName}'")
     if revisions.fetch_row.nil?
       now = get_current_time()
-      user_id = @mysql.query("SELECT id FROM users WHERE name = '#{author}'").fetch_row[0]
-      @mysql.query("INSERT INTO commits (revision, user_id, datetime, message, created_at, updated_at) VALUES('#{revisionName}', '#{user_id}', '#{date()}', '#{message()}', '#{now}', '#{now}');")
+      committer_id = @mysql.query("SELECT id FROM committers WHERE name = '#{author}'").fetch_row[0]
+      @mysql.query("INSERT INTO commits (revision, committer_id, datetime, message, created_at, updated_at) VALUES('#{revisionName}', '#{committer_id}', '#{date()}', '#{message()}', '#{now}', '#{now}');")
     end
     
     action_and_paths(revisionName)
@@ -40,10 +40,10 @@ class Import
   
   def create_commit
     author = @entry.find_first('author').content
-    authors = @mysql.query("SELECT name FROM users WHERE name = '#{author}'")
+    authors = @mysql.query("SELECT name FROM committers WHERE name = '#{author}'")
     if authors.fetch_row.nil?
       now = get_current_time()
-      @mysql.query("INSERT INTO users (name, created_at, updated_at, project_id) VALUES('#{author}', '#{now}', '#{now}', '#{@project}');")
+      @mysql.query("INSERT INTO committers (name, created_at, updated_at, project_id) VALUES('#{author}', '#{now}', '#{now}', '#{@project}');")
     end
 
     revision(author)
