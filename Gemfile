@@ -9,7 +9,7 @@ gem 'will_paginate'
 gem 'newrelic_rpm'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.1.5'
+  gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :tag=> '3-1-stable'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier',     '>= 1.0.3'
 end
