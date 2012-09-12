@@ -4,6 +4,7 @@
 #
 #  id         :integer         not null, primary key
 #  name       :string(255)
+#  project_id :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -26,9 +27,17 @@ describe Committer do
     it "should require a name" do
       Committer.new(@attr.merge(:name => "")).should_not be_valid
     end
+
+    it "should require a project id" do
+      Committer.new(@attr.merge(:project_id => "")).should_not be_valid
+    end
     
     it "should reject a blank name" do
       Committer.new(@attr.merge(:name => "   ")).should_not be_valid
+    end
+
+    it "should reject a blank project id" do
+      Committer.new(@attr.merge(:project_id => "    ")).should_not be_valid
     end
   end
   

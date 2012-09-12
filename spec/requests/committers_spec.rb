@@ -9,6 +9,7 @@ describe "Committers" do
         lambda do
           visit new_committer_path
           fill_in "Name", :with => ""
+          fill_in "Project", :with => ""
           click_button
           response.should render_template("committers/new")
           response.should have_selector("div#error_explanation")
@@ -21,6 +22,7 @@ describe "Committers" do
         lambda do
           visit new_committer_path
           fill_in "Name", :with => "Test committer"
+          fill_in "Project", :with => 1
           click_button
           response.should have_selector("p", :content => "committer was successfully created.")
           response.should render_template("committers/show")

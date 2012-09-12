@@ -14,5 +14,6 @@ class Committer < ActiveRecord::Base
   belongs_to :project
   has_many   :commits
   
-  validates :name, :presence => true
+  validates :name,       :presence => true
+  validates :project_id, :presence => true
 end

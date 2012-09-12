@@ -67,8 +67,8 @@ describe CommittersController do
      it "should have the committer's commits" do
        committer = FactoryGirl.create(:committer)
        committer.commits.create!(:revision => 1,
-                            :datetime => "01/01/2011",
-                            :message => "message")
+                                 :datetime => "01/01/2011",
+                                 :message => "message")
                             
        get :show, :id => committer.id
        response.should have_selector("li", :content => committer.commits.first.revision.to_s)
@@ -93,7 +93,7 @@ describe CommittersController do
      describe "failure" do
        
        before(:each) do
-         @attr = { :name => "" }
+         @attr = { :name => "", :project_id => "" }
        end
        
        it "should have the right title" do
@@ -116,7 +116,7 @@ describe CommittersController do
      describe "success" do
        
        before(:each) do
-         @attr = { :name => "Test committer" }
+         @attr = { :name => "Test committer", :project_id => 1}
        end
        
        it "should create a committer" do
@@ -158,7 +158,7 @@ describe CommittersController do
      describe "failure" do
    
        before(:each) do
-         @attr = { :name => "" }
+         @attr = { :name => "", :project_id => "" }
        end
    
        it "should render the 'edit' page" do
