@@ -155,7 +155,7 @@ describe ProjectsController do
     describe "failure" do
   
       before(:each) do
-        @attr = { :name => "", :description => "" }
+        @attr = { :name => "" }
       end
   
       it "should render the 'edit' page" do
@@ -172,7 +172,7 @@ describe ProjectsController do
     describe "success" do
   
       before(:each) do
-        @attr = { :name => "Test Project", :description => "Description" }
+        @attr = { :name => "Test Project" }
       end
   
       it "should change the project's attributes" do
@@ -180,7 +180,6 @@ describe ProjectsController do
         project = assigns(:project)
         @project.reload
         @project.name.should == project.name
-        @project.description.should == project.description
       end
     end   
   end

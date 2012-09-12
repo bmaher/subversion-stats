@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :project do
     name        "project name"
-    description "project description"
   end
   
   factory :committer do

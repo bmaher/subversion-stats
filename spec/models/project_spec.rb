@@ -4,8 +4,7 @@ describe Project do
   
   before(:each) do
     @committer = FactoryGirl.create(:committer)
-    @attr = { :name        => "Example Project",
-              :description => "Example Description" }
+    @attr = { :name => "Example Project" }
   end
   
   it "should create a new instance given valid attributes" do
@@ -20,14 +19,6 @@ describe Project do
     
     it "should reject a blank name" do
       Project.new(@attr.merge(:name => "   ")).should_not be_valid
-    end
-    
-    it "should require a description" do
-      Project.new(@attr.merge(:description => "")).should_not be_valid
-    end
-    
-    it "should reject a blank description" do
-      Project.new(@attr.merge(:description => "   ")).should_not be_valid
     end
   end
   
