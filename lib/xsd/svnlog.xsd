@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- log: root element -->
+  <xsd:element name="log">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="logentry" type="logentryType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- logType: collection of log entries -->
+  <!-- logentryType: describes one revision -->
+  <xsd:complexType name="logentryType">
+    <xsd:sequence>
+      <xsd:element name="author" type="xsd:string"/>
+      <xsd:element name="date" type="xsd:string"/>
+      <xsd:element name="paths" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="path" minOccurs="0" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:simpleContent>
+                  <xsd:extension base="xsd:string">
+                    <xsd:attribute name="kind" type="xsd:string"/>
+                    <xsd:attribute name="action" type="actionType" use="required"/>
+                    <xsd:attribute name="copyfrom-path" type="xsd:string"/>
+                    <xsd:attribute name="copyfrom-rev" type="xsd:unsignedInt"/>
+                  </xsd:extension>
+                </xsd:simpleContent>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="msg" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="revision" type="xsd:unsignedInt" use="required"/>
+  </xsd:complexType>
+
+  <!-- actionType: one character: A D M or R     -->
+  <xsd:simpleType name="actionType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[ADMR]"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
