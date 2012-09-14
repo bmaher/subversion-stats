@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class committersTest < ActionDispatch::PerformanceTest
+class CommittersTest < ActionDispatch::PerformanceTest
   self.profile_options = { :runs => 4, :metrics => [:wall_time, :process_time, :cpu_time] }
   
   def test_homepage

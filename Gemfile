@@ -6,7 +6,11 @@ gem 'haml'
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'will_paginate'
+gem 'libxml-ruby'
 gem 'newrelic_rpm'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 group :assets do
   gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :tag=> '3-1-stable'
@@ -18,7 +22,6 @@ group :development do
   gem 'thin'
   gem 'pry'
   gem 'annotate'
-  gem 'libxml-ruby'
   gem 'capistrano'
   gem 'rspec-rails'
 end

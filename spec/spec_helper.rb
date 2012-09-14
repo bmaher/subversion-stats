@@ -1,5 +1,8 @@
 require 'rubygems'
 require 'spork'
+require 'sidekiq'
+require 'sidekiq/testing'
+require 'sidekiq/testing/inline'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 

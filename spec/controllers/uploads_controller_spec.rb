@@ -20,7 +20,7 @@ describe UploadsController do
 
     before :each do
       @attr = { :project_name => "Project",
-                :log_file => fixture_file_upload('/files/log.xml', 'text/xml') }
+                :log_file => fixture_file_upload('/files/simple_log.xml', 'text/xml') }
     end
     
     describe "success" do
@@ -35,23 +35,11 @@ describe UploadsController do
           post :create, :upload => @attr
         end.should change(Project, :count).by(1)
       end
-      
-      it "should create a new committer and assign it the project" do
+
+      it "should create a new import worker and queue the import job" do
         lambda do
           post :create, :upload => @attr
-        end.should change(Committer, :count).by(1)
-      end
-      
-      it "should create a new commit and assign it to the committer" do
-        lambda do
-          post :create, :upload => @attr
-        end.should change(Commit, :count).by(1)
-      end
-      
-      it "should create a new change and assign it to the commit" do
-        lambda do
-          post :create, :upload => @attr
-        end.should change(Change, :count).by(1)
+        end.should change(ImportWorker.jobs, :size).by(1)
       end
     end
   end

@@ -1,5 +1,3 @@
-require 'LogImporter'
-
 class UploadsController < ApplicationController
 
   def new
@@ -15,7 +13,7 @@ class UploadsController < ApplicationController
       redirect_to projects_path, :notice => 'Project is being imported.'
     else
       @title = "Upload Log"
-      render action: "new"
+      render action :new
     end
   end
   
@@ -25,8 +23,7 @@ class UploadsController < ApplicationController
     create_project
     
     if project_created?
-      importer = LogImporter.new(@project, @upload.log_file)
-      importer.import
+      ImportWorker.perform_async(@project.id, @upload.log_file.read)
     end
   end
   
