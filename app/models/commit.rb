@@ -17,8 +17,9 @@ class Commit < ActiveRecord::Base
   belongs_to  :committer
   has_many    :changes
    
-  validates :revision,  :presence => true
+  validates :revision,       :presence => true
   validates :committer_id,   :presence => true
-  validates :datetime,  :presence => true
-  validates :message,   :presence => true
+  validates :datetime,       :presence => true
+  validates :message,        :length =>  { :minimum => 0 },
+                             :allow_blank => true
 end

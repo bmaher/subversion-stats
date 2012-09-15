@@ -19,9 +19,10 @@ describe Commit do
     
     @committer = FactoryGirl.create(:committer)
     
-    @attr = { :revision => 1234,
-              :datetime => "01/01/2011",
-              :message  => "my commit" }
+    @attr = { :revision     => 1234,
+              :committer_id => @committer.id,
+              :datetime     => "01/01/2011",
+              :message      => "my commit" }
   end
   
   it "should create a new instance given valid attributes" do
@@ -42,8 +43,12 @@ describe Commit do
       Commit.new(@attr.merge(:datetime => "")).should_not be_valid
     end
     
-    it "should require a message" do
-      Commit.new(@attr.merge(:message => "")).should_not be_valid
+    it "should not require a message" do
+      Commit.new(@attr.merge(:message => "")).should be_valid
+    end
+
+    it "should accept a blank message" do
+      Commit.new(@attr.merge(:message => "    ")).should be_valid
     end
   end
   
