@@ -20,7 +20,6 @@ end
 
 group :development do
   gem 'thin'
-  gem 'pry'
   gem 'annotate'
   gem 'capistrano'
   gem 'rspec-rails'
