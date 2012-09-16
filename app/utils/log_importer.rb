@@ -20,7 +20,7 @@ class LogImporter
       create_commits
       create_changes
     else
-      raise ImportError.new("Log validation failed! Please provide a valid SVN log file.")
+      raise ImportError.new, "Log validation failed! Please provide a valid SVN log file."
     end
   end
 
