@@ -1,13 +1,13 @@
 require 'xml'
-require 'import_exception'
+require 'import_error'
 
 class LogImporter
+
+  LibXML::XML::Error.set_handler(&LibXML::XML::Error::QUIET_HANDLER)
 
   attr_accessor :project_id
   attr_accessor :log
   attr_accessor :xml
-
-  SVN_LOG_SCHEMA = 'lib/xsd/svnlog.xsd'
 
   def initialize(project_id, log)
     self.project_id = project_id
@@ -20,19 +20,19 @@ class LogImporter
       create_commits
       create_changes
     else
-      raise ImportException.new("Log validation failed! Please provide a valid SVN log file.")
+      raise ImportError.new("Log validation failed! Please provide a valid SVN log file.")
     end
   end
 
   def valid?
-    validate(parse(self.log), SVN_LOG_SCHEMA)
+      validate(parse(self.log), 'lib/xsd/svnlog.xsd')
   end
 
   def parse(xml)
     begin
       self.xml = LibXML::XML::Document.string(xml)
     rescue LibXML::XML::Error => parsing_error
-      parsing_error
+      raise ImportError.new, parsing_error.message
     end
   end
   
@@ -41,7 +41,7 @@ class LogImporter
       schema = LibXML::XML::Schema.document(LibXML::XML::Document.file(schema_file))
       xml.validate_schema(schema)
     rescue LibXML::XML::Error => validation_error
-      validation_error
+      raise ImportError.new, validation_error.message
     end
   end
 
@@ -59,9 +59,8 @@ class LogImporter
   def find_project
     begin
       Project.find(self.project_id)
-    rescue Exception
-      message = "Project with id '#{self.project_id}' not found! Stopping import."
-      raise ImportException.new(message, self.project_id)
+    rescue ActiveRecord::RecordNotFound
+      raise ImportError.new(self.project_id), "Project with id '#{self.project_id}' not found! Stopping import."
     end
   end
 

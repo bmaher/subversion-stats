@@ -35,7 +35,9 @@ describe LogImporter do
     describe "failure" do
 
       it "should return a parsing error" do
-        @importer.parse('invalid xml').should be_a(LibXML::XML::Error)
+        lambda do
+          @importer.parse('invalid xml')
+        end.should raise_error(ImportError, "Fatal error: Start tag expected, '<' not found at :1.")
       end
     end
   end
@@ -64,12 +66,11 @@ describe LogImporter do
 
     describe "failure" do
 
-      before(:each) do
-        @invalid_xml = LibXML::XML::Document.string('<invalidNode>value</invalidNode>')
-      end
-
       it "should return a validation error" do
-        @importer.validate(@invalid_xml, @schema).should be_a(LibXML::XML::Error)
+        invalid_xml = LibXML::XML::Document.string('<invalidNode>value</invalidNode>')
+        lambda do
+          @importer.validate(invalid_xml, @schema)
+        end.should raise_error(ImportError, "Error: Element 'invalidNode': No matching global declaration available for the validation root. at :1.")
       end
     end
   end
@@ -97,7 +98,7 @@ describe LogImporter do
       it "should throw an exception" do
         lambda do
           @importer.find_project
-        end.should raise_error
+        end.should raise_error(ImportError, "Project with id '1' not found! Stopping import.")
       end
     end
   end
