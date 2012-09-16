@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe CommittersController do
   render_views
+
+  before(:each) do
+    sign_in FactoryGirl.create(:admin)
+  end
   
   describe "GET 'index'" do
     
     before(:each) do
       FactoryGirl.create(:committer, :name => "committer1")
-      30.times { FactoryGirl.create(:committer, :name => FactoryGirl.generate(:committerId)) }
+      30.times { FactoryGirl.create(:committer, :name => FactoryGirl.generate(:committer_id)) }
     end
 
     it "should be successful" do

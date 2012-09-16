@@ -11,6 +11,7 @@ gem 'newrelic_rpm'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'devise'
 
 group :assets do
   gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :tag=> '3-1-stable'

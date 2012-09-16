@@ -1,6 +1,14 @@
 require 'spec_helper'
 
+include Warden::Test::Helpers
+Warden.test_mode!
+
 describe "Committers" do
+
+  before(:each) do
+    user = FactoryGirl.create(:admin)
+    login_as(user, :scope => :admin)
+  end
 
   describe "create committer" do
     

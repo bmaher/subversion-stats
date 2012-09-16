@@ -1,4 +1,5 @@
 class ChangesController < ApplicationController
+  before_filter :authenticate_admin!
 
   def index
     @changes = Change.all.paginate(:page => params[:page])

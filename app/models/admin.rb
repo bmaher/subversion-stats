@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: admins
+#
+#  id                       :integer    not null, primary key
+#  email                    :string(255)
+#  encrypted_password       :string(255)
+#  remember_created_at      :datetime
+#  sign_in_count            :integer
+#  current_sign_in          :datetime
+#  last_sign_in_at          :datetime
+#  current_sign_in_ip       :string(255)
+#  last_sign_in_ip          :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  username                 :string(255)
+#
+
+class Admin < ActiveRecord::Base
+  devise :database_authenticatable, :rememberable, :trackable, :validatable
+
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  validates :username, :uniqueness => true,
+            :presence => true
+end

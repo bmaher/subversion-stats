@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe ProjectsController do
   render_views
+
+  before(:each) do
+    sign_in FactoryGirl.create(:user)
+  end
   
   describe "GET 'index'" do
     
     before(:each) do
       FactoryGirl.create(:project, :name => "project1")
-      30.times { FactoryGirl.create(:project, :name => FactoryGirl.generate(:projectId)) }
+      30.times { FactoryGirl.create(:project, :name => FactoryGirl.generate(:project_id)) }
     end
 
     it "should be successful" do

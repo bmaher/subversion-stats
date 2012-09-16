@@ -23,14 +23,38 @@ FactoryGirl.define do
     fullpath     "/target/src/main/file.txt"
     association  :commit
   end
+
+  factory :user do
+    username
+    email
+    password              "password"
+    password_confirmation "password"
+    remember_me           true
+  end
+
+  factory :admin do
+    username
+    email
+    password              "password"
+    password_confirmation "password"
+    remember_me           true
+  end
   
-  sequence :projectId do |n|
+  sequence :project_id do |n|
     "project#{n}"
   end
   
-  sequence :committerId do |n|
+  sequence :committer_id do |n|
     "committer#{n}"
   end
   
-  sequence :revisionId
+  sequence :revision
+
+  sequence :email do |n|
+    "user#{n}@example.com"
+  end
+
+  sequence :username do |n|
+    "user#{n}"
+  end
 end

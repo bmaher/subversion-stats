@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe CommitsController do
   render_views
+
+  before(:each) do
+    sign_in FactoryGirl.create(:admin)
+  end
   
   describe "GET 'index'" do
     
     before(:each) do
       FactoryGirl.create(:commit, :revision => 1)
-      30.times { FactoryGirl.create(:commit, :revision => FactoryGirl.generate(:revisionId)) }
+      30.times { FactoryGirl.create(:commit, :revision => FactoryGirl.generate(:revision)) }
     end
     
     it "should be successful" do

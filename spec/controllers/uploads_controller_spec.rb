@@ -3,6 +3,10 @@ require 'spec_helper'
 describe UploadsController do
   render_views
 
+  before(:each) do
+    sign_in FactoryGirl.create(:user)
+  end
+
   describe "GET 'new'" do
 
     it "should be successful" do

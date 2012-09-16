@@ -1,4 +1,5 @@
 class CommittersController < ApplicationController
+  before_filter :authenticate_admin!
 
   def index
     @committers = Committer.all.paginate(:page => params[:page])

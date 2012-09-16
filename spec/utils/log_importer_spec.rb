@@ -9,7 +9,7 @@ describe LogImporter, :broken_in_spork => true do
   before(:each) do
     @importer = LogImporter.new(1, '<log/>')
   end
-  
+
   describe "parse xml" do
 
     describe "success" do

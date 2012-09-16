@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe ChangesController do
   render_views
+
+  before(:each) do
+    sign_in FactoryGirl.create(:admin)
+  end
   
   describe "GET 'index'" do
     
     before(:each) do
       FactoryGirl.create(:change, :revision => 1)
-      30.times { FactoryGirl.create(:change, :revision => FactoryGirl.generate(:revisionId)) }
+      30.times { FactoryGirl.create(:change, :revision => FactoryGirl.generate(:revision)) }
     end
     
     it "should be successful" do

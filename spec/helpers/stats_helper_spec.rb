@@ -8,7 +8,7 @@ describe StatsHelper do
       @project = FactoryGirl.create(:project)
       committer = FactoryGirl.create(:committer, :project => @project)
       30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer) }
     end
 
@@ -20,7 +20,7 @@ describe StatsHelper do
       other_project = FactoryGirl.create(:project, :name => "other project")
       committer = FactoryGirl.create(:committer, :project => other_project)
       30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer) }
       helper.commits_by(@project).should == 30
     end
@@ -32,11 +32,11 @@ describe StatsHelper do
       @project = FactoryGirl.create(:project)
       @committer = FactoryGirl.create(:committer, :project => @project)
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => @committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       5.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => @committer,
                                     :datetime  => "2012-02-01T00:00:00.000000A")}
     end
@@ -49,9 +49,9 @@ describe StatsHelper do
     it "should not return commits for another committer" do
       other_committer = FactoryGirl.create(:committer,
                                            :project => @project,
-                                           :name    => FactoryGirl.generate(:committerId))
+                                           :name    => FactoryGirl.generate(:committer_id))
       20.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       helper.commits_by_month_for(@committer)[1].should == 10
@@ -64,11 +64,11 @@ describe StatsHelper do
       @project = FactoryGirl.create(:project)
       @committer = FactoryGirl.create(:committer, :project => @project)
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => @committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       5.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => @committer,
                                     :datetime  => "2011-01-01T00:00:00.000000A")}
     end
@@ -81,9 +81,9 @@ describe StatsHelper do
     it "should not return commits for another committer" do
       other_committer = FactoryGirl.create(:committer,
                                            :project => @project,
-                                           :name    => FactoryGirl.generate(:committerId))
+                                           :name    => FactoryGirl.generate(:committer_id))
       20.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       helper.commits_by_year_for(@committer)[2012].should == 10
@@ -116,20 +116,20 @@ describe StatsHelper do
       @project = FactoryGirl.create(:project)
       committer = FactoryGirl.create(:committer, :project => @project)
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       5.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer,
                                     :datetime  => "2012-02-01T00:00:00.000000A")}
       other_committer = FactoryGirl.create(:committer, :project => @project)
       15.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2012-02-01T00:00:00.000000A")}
     end
@@ -146,7 +146,7 @@ describe StatsHelper do
       project = FactoryGirl.create(:project)
       @committer = FactoryGirl.create(:committer, :project => project)
       30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => @committer) }
     end
 
@@ -161,20 +161,20 @@ describe StatsHelper do
       @project = FactoryGirl.create(:project)
       committer = FactoryGirl.create(:committer, :project => @project)
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       5.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => committer,
                                     :datetime  => "2011-02-01T00:00:00.000000A")}
       other_committer = FactoryGirl.create(:committer, :project => @project)
       15.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2012-01-01T00:00:00.000000A")}
       10.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revisionId),
+                                    :revision  => FactoryGirl.generate(:revision),
                                     :committer => other_committer,
                                     :datetime  => "2011-02-01T00:00:00.000000A")}
     end

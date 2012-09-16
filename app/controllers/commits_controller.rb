@@ -1,4 +1,5 @@
 class CommitsController < ApplicationController
+  before_filter :authenticate_admin!
 
   def index
     @commits = Commit.all.paginate(:page => params[:page])

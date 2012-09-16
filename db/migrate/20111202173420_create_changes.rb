@@ -6,6 +6,7 @@ class CreateChanges < ActiveRecord::Migration
       t.string :project_root
       t.string :filepath
       t.string :fullpath
+      t.integer :commit_id
 
       t.timestamps
     end

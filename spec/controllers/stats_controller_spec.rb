@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe StatsController do
   render_views
-  
+
+  before(:each) do
+    sign_in FactoryGirl.create(:user)
+  end
+
   describe "GET 'index'" do
 
     it "should be successful" do
