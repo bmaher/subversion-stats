@@ -22,14 +22,22 @@ group :development do
   gem 'thin'
   gem 'annotate'
   gem 'capistrano'
-  gem 'rspec-rails'
+  gem 'growl'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
+  gem 'guard-jasmine'
+  gem 'guard-livereload'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 group :test do
   gem 'ruby-prof'
   gem 'turn', '0.8.2', :require => false
-  gem 'rspec-rails'
   gem 'webrat'
   gem 'factory_girl_rails'
-  gem 'spork-rails'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'jasminerice'
 end
