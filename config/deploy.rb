@@ -18,6 +18,7 @@ require "rvm/capistrano"
 set :rvm_ruby_string, "1.9.3-p0"
 
 require "bundler/capistrano"
+require "sidekiq/capistrano"
 
 namespace :deploy do
   task :start, :roles => :app do
