@@ -23,11 +23,12 @@ group :development do
   gem 'annotate'
   gem 'capistrano'
   gem 'growl'
+  gem 'growl_notify'
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-jasmine'
   gem 'guard-livereload'
-  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
 group :test do
