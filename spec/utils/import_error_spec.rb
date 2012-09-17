@@ -6,6 +6,6 @@ describe ImportError do
     project_id = 1
     lambda do
       raise ImportError.new(project_id), 'Test Message'
-    end.should raise_error(ImportError, 'Test Message') { |error| error.project_id[0].should == project_id }
+    end.should raise_error(ImportError, 'Test Message') { |error| error.instance_variable_get(:@project_id)[0].should == project_id }
   end
 end
