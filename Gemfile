@@ -23,6 +23,8 @@ group :development do
   gem 'annotate'
   gem 'capistrano'
   gem 'growl'
+  gem 'spork-rails'
+  gem 'guard-spork'
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-jasmine'
