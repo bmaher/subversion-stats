@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LogImporter do
+describe LogImporter, :broken_in_spork => true do
 
   it "should require a project id and a log" do
     LogImporter.new(1, '<log/>')
