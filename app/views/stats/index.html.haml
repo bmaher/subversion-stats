@@ -24,7 +24,7 @@
     %ul
       %header
         %h3= "Project: #{project.name}"
-      - yearly_commits_for(project).each do |year|
+      - commits_by_for(StatsHelper::YEAR, project).each do |year|
         %li= "Year: #{year[0]}, Total Commits: #{year[1]}"
 
 .committer-yearly
@@ -47,7 +47,7 @@
     %ul
       %header
         %h3= "Project #{project.name}"
-      - monthly_commits_for(project).each do |month|
+      - commits_by_for(StatsHelper::MONTH, project).each do |month|
         %li= "Month: #{month_name(month[0])}, Total Commits: #{month[1]}"
 
 .committer-monthly

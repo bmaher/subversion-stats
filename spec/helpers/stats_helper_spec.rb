@@ -135,8 +135,8 @@ describe StatsHelper do
     end
 
     it "should return the total number of commits for a project by month" do
-      helper.monthly_commits_for(@project)[0][1].should == 25
-      helper.monthly_commits_for(@project)[1][1].should == 15
+      helper.commits_by_for(StatsHelper::MONTH, @project)[0][1].should == 25
+      helper.commits_by_for(StatsHelper::MONTH, @project)[1][1].should == 15
     end
   end
 
@@ -180,8 +180,8 @@ describe StatsHelper do
     end
 
     it "should return the total number of commits for a project by year" do
-      helper.yearly_commits_for(@project)[0][1].should == 15
-      helper.yearly_commits_for(@project)[1][1].should == 25
+      helper.commits_by_for(StatsHelper::YEAR, @project)[0][1].should == 15
+      helper.commits_by_for(StatsHelper::YEAR, @project)[1][1].should == 25
     end
   end
 end

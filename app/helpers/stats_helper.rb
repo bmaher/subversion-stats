@@ -15,25 +15,25 @@ module StatsHelper
     end
     return count
   end
-  
-  def yearly_commits_for(project)
-    years = Array.new
+
+  YEAR = 0
+  MONTH = 1
+
+  def commits_by_for(time_range, project)
+    range = Array.new
     committers_for(project).each do |committer|
-      years << commits_by_year_for(committer)
+      case time_range
+        when YEAR
+          range << commits_by_year_for(committer)
+        when MONTH
+          range << commits_by_month_for(committer)
+      end
     end
-    years.inject{ |year, count| year.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
+    range.inject { |memo, count| memo.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
   end
   
   def commits_by_year_for(committer)
     Commit.count(:conditions => "committer_id = #{committer.id}", :group => "Year(datetime)")
-  end
-  
-  def monthly_commits_for(project)
-    months = Array.new
-    committers_for(project).each do |committer|
-      months << commits_by_month_for(committer)
-    end
-    months.inject{ |months, count| months.merge(count){ |key, old_value, new_value| old_value + new_value } }.to_a
   end
   
   def commits_by_month_for(committer)
