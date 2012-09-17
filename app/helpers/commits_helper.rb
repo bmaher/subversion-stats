@@ -1,6 +1,6 @@
 module CommitsHelper
   
   def changes_for(commit)
-    Change.find_all_by_commit_id(commit)
+    commit.changes
   end
 end

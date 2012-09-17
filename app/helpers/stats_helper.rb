@@ -1,11 +1,11 @@
 module StatsHelper
   
   def committers_for(project)
-    Committer.find_all_by_project_id(project)
+    project.committers
   end
   
   def total_commits_for(committer)
-    Commit.find_all_by_committer_id(committer).count
+    committer.commits.count
   end
   
   def commits_by(project)
