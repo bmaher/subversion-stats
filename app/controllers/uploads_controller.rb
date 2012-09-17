@@ -13,7 +13,7 @@ class UploadsController < ApplicationController
       redirect_to projects_path, :notice => 'Project is being imported.'
     else
       @title = "Upload Log"
-      render action :new
+      render action: "new"
     end
   end
   
