@@ -28,7 +28,7 @@ describe LogImporter do
 
       it "should assign the XML document to the xml attribute" do
         @importer.parse(@valid_xml)
-        @importer.xml.to_s.should include(@valid_xml)
+        @importer.instance_variable_get(:@xml).to_s.should include(@valid_xml)
       end
     end
 
@@ -81,7 +81,7 @@ describe LogImporter do
 
       before(:each) do
         @project = Project.create(:name => 'Test Project')
-        @importer.project_id = @project.id
+        @importer.instance_variable_set(:@project_id, @project.id)
       end
 
       it "should return a project object" do
@@ -224,7 +224,7 @@ describe LogImporter do
     end
 
     it "should not create a new committer if they already exist" do
-      @importer.log = File.open(File.join(Rails.root, 'spec/fixtures/files/complex_log.xml')).read
+      @importer.instance_variable_set(:@log,  File.open(File.join(Rails.root, 'spec/fixtures/files/complex_log.xml')).read)
       @importer.valid?
 
       lambda do

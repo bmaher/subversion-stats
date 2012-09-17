@@ -5,13 +5,10 @@ class LogImporter
 
   LibXML::XML::Error.set_handler(&LibXML::XML::Error::QUIET_HANDLER)
 
-  attr_accessor :project_id
-  attr_accessor :log
-  attr_accessor :xml
-
   def initialize(project_id, log)
-    self.project_id = project_id
-    self.log = log
+    @project_id = project_id
+    @log = log
+    @xml = nil
   end
 
   def import
@@ -25,12 +22,12 @@ class LogImporter
   end
 
   def valid?
-      validate(parse(self.log), 'lib/xsd/svnlog.xsd')
+      validate(parse(@log), 'lib/xsd/svnlog.xsd')
   end
 
   def parse(xml)
     begin
-      self.xml = LibXML::XML::Document.string(xml)
+      @xml = LibXML::XML::Document.string(xml)
     rescue LibXML::XML::Error => parsing_error
       raise ImportError.new, parsing_error.message
     end
@@ -58,14 +55,14 @@ class LogImporter
 
   def find_project
     begin
-      Project.find(self.project_id)
+      Project.find(@project_id)
     rescue ActiveRecord::RecordNotFound
-      raise ImportError.new(self.project_id), "Project with id '#{self.project_id}' not found! Stopping import."
+      raise ImportError.new(@project_id), "Project with id '#@project_id' not found! Stopping import."
     end
   end
 
   def find_log_entries
-    self.xml.root.find('./logentry')
+    @xml.root.find('./logentry')
   end
 
   def find_author_for(entry)
@@ -84,7 +81,7 @@ class LogImporter
   end
 
   def find_entries_for(author)
-    self.xml.root.find("./logentry/author[text()='#{author}']/..")
+    @xml.root.find("./logentry/author[text()='#{author}']/..")
   end
 
   def find_message_for(entry)
@@ -108,7 +105,7 @@ class LogImporter
   end
 
   def find_changes_for(commit)
-    self.xml.root.find("./logentry[@revision=#{commit}]/paths/path")
+    @xml.root.find("./logentry[@revision=#{commit}]/paths/path")
   end
 
   def find_file_paths_for(change)
