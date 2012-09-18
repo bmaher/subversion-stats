@@ -49,4 +49,15 @@ describe User do
       user_with_duplicate_username.should_not be_valid
     end
   end
+
+  describe "project association" do
+
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "should have a change attribute" do
+      @user.should respond_to(:projects)
+    end
+  end
 end

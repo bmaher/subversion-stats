@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
   
   def index
     @projects = Project.all.paginate(:page => params[:page])
@@ -17,9 +18,11 @@ class ProjectsController < ApplicationController
   end
   
   def create
-    @project = Project.new(params[:project])
+    @project = current_user.projects.build(params[:project])
 
     if @project.save
+      current_user.roles=current_user.roles + %w[project_owner]
+      current_user.save!
       redirect_to @project, notice: 'Project was successfully created.'
     else
       @title = "Create project"
@@ -41,5 +44,10 @@ class ProjectsController < ApplicationController
       @title = "Edit project  "
       render action: "edit"
     end
+  end
+
+  def destroy
+    @project.destroy
+    redirect_to projects_path, notice: 'Project was successfully deleted.'
   end
 end

@@ -2,15 +2,12 @@ require 'spec_helper'
 
 describe ProjectsController do
   render_views
-
-  before(:each) do
-    sign_in FactoryGirl.create(:user)
-  end
   
   describe "GET 'index'" do
     
     before(:each) do
-      FactoryGirl.create(:project, :name => "project1")
+      @project = FactoryGirl.create(:project, :user => FactoryGirl.create(:user, :roles => %w[project_owner]))
+      sign_in @project.user
       30.times { FactoryGirl.create(:project, :name => FactoryGirl.generate(:project_id)) }
     end
 
@@ -45,7 +42,8 @@ describe ProjectsController do
   describe "GET 'show'" do
     
     before(:each) do
-      @project = FactoryGirl.create(:project)
+      @project = FactoryGirl.create(:project, :user => FactoryGirl.create(:user, :roles => %w[project_owner]))
+      sign_in @project.user
     end
     
     it "should be successful" do
@@ -77,7 +75,11 @@ describe ProjectsController do
   end
   
   describe "GET 'new'" do
-    
+
+    before(:each) do
+      sign_in FactoryGirl.create(:user)
+    end
+
     it "should be successful" do
       get :new
       response.should be_success
@@ -90,11 +92,16 @@ describe ProjectsController do
   end
   
   describe "POST 'create'" do
-    
+
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
+
     describe "failure" do
       
       before(:each) do
-        @attr = { :name => "", :description => "" }
+        @attr = { :name => "", :user_id => "" }
       end
       
       it "should have the right title" do
@@ -117,7 +124,7 @@ describe ProjectsController do
     describe "success" do
       
       before(:each) do
-        @attr = { :name => "Test Project", :description => "Description" }
+        @attr = { :name => "Test Project", :user_id => @user.id }
       end
       
       it "should create a project" do
@@ -130,13 +137,19 @@ describe ProjectsController do
         post :create, :project => @attr
         response.should redirect_to(project_path(assigns(:project)))
       end
+
+      it "should assign the project owner role to the user" do
+        post :create, :project => @attr
+        User.find(@user.id).has_role?(:project_owner).should == true
+      end
     end
   end
   
   describe "GET 'edit'" do
   
     before(:each) do
-      @project = FactoryGirl.create(:project)
+      @project = FactoryGirl.create(:project, :user => FactoryGirl.create(:user, :roles => %w[project_owner]))
+      sign_in @project.user
     end
   
     it "should be successful" do
@@ -153,7 +166,8 @@ describe ProjectsController do
   describe "PUT 'update'" do
   
     before(:each) do
-      @project = FactoryGirl.create(:project)
+      @project = FactoryGirl.create(:project, :user => FactoryGirl.create(:user, :roles => %w[project_owner]))
+      sign_in @project.user
     end
   
     describe "failure" do
@@ -186,5 +200,20 @@ describe ProjectsController do
         @project.name.should == project.name
       end
     end   
+  end
+
+  describe "DELETE 'destroy'" do
+
+    before(:each) do
+      @project = FactoryGirl.create(:project, :user => FactoryGirl.create(:user, :roles => %w[project_owner]))
+      sign_in @project.user
+    end
+
+    it "should destroy the project" do
+      lambda do
+        delete :destroy, :id => @project
+        response.should redirect_to(projects_path)
+      end.should change(Project, :count).by(-1)
+    end
   end
 end

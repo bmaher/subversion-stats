@@ -6,8 +6,8 @@ Warden.test_mode!
 describe "Commits" do
 
   before(:each) do
-    user = FactoryGirl.create(:admin)
-    login_as(user, :scope => :admin)
+    user = FactoryGirl.create(:user, :roles => %w[admin])
+    login_as(user, :scope => :user)
   end
 
   describe "create commit" do

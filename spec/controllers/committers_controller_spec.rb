@@ -4,7 +4,7 @@ describe CommittersController do
   render_views
 
   before(:each) do
-    sign_in FactoryGirl.create(:admin)
+    sign_in FactoryGirl.create(:user, :roles => %w[admin])
   end
   
   describe "GET 'index'" do

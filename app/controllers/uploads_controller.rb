@@ -1,5 +1,6 @@
 class UploadsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def new
     @title = "Upload Log"
@@ -29,7 +30,7 @@ class UploadsController < ApplicationController
   end
   
   def create_project
-    @project = Project.new(:name => @project_name)
+    @project = current_user.projects.build(:name => @project_name)
   end
   
   def project_created?

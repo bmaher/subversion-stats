@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :project do
     name        "project name"
+    association :user
   end
   
   factory :committer do
@@ -32,14 +33,6 @@ FactoryGirl.define do
     remember_me           true
   end
 
-  factory :admin do
-    username
-    email
-    password              "password"
-    password_confirmation "password"
-    remember_me           true
-  end
-  
   sequence :project_id do |n|
     "project#{n}"
   end

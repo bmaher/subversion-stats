@@ -80,7 +80,7 @@ describe LogImporter, :broken_in_spork => true do
     describe "success" do
 
       before(:each) do
-        @project = Project.create(:name => 'Test Project')
+        @project = Project.create(:name => 'Test Project', :user_id => 1)
         @importer.instance_variable_set(:@project_id, @project.id)
       end
 
@@ -213,7 +213,7 @@ describe LogImporter, :broken_in_spork => true do
 
     before(:each) do
       log = File.open(File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'))
-      @importer = LogImporter.new(Project.create(:name => "Test Project").id, log.read)
+      @importer = LogImporter.new(Project.create(:name => "Test Project", :user_id => 1).id, log.read)
       @importer.valid?
     end
 
@@ -237,7 +237,7 @@ describe LogImporter, :broken_in_spork => true do
 
     before(:each) do
       log = File.open(File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'))
-      @importer = LogImporter.new(Project.create(:name => "Test Project").id, log.read)
+      @importer = LogImporter.new(Project.create(:name => "Test Project", :user_id => 1).id, log.read)
       @importer.valid?
       @importer.create_committers
     end
@@ -253,7 +253,7 @@ describe LogImporter, :broken_in_spork => true do
 
     before(:each) do
       log = File.open(File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'))
-      @importer = LogImporter.new(Project.create(:name => "Test Project").id, log.read)
+      @importer = LogImporter.new(Project.create(:name => "Test Project", :user_id => 1).id, log.read)
       @importer.valid?
       @importer.create_committers
       @importer.create_commits
@@ -270,7 +270,7 @@ describe LogImporter, :broken_in_spork => true do
 
     it "should create committers, commits, and changes for a project" do
       log = File.open(File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'))
-      importer = LogImporter.new(Project.create(:name => 'Test Project').id, log.read)
+      importer = LogImporter.new(Project.create(:name => 'Test Project', :user_id => 1).id, log.read)
       lambda do
         importer.import
       end.should change(Committer, :count).by(1) && change(Commit, :count).by(1) && change(Change, :count).by(1)

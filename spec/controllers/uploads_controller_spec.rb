@@ -4,7 +4,7 @@ describe UploadsController do
   render_views
 
   before(:each) do
-    sign_in FactoryGirl.create(:user)
+    sign_in FactoryGirl.create(:user, :roles => %w[admin])
   end
 
   describe "GET 'new'" do
