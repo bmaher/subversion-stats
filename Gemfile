@@ -24,6 +24,7 @@ group :development do
   gem 'thin'
   gem 'annotate'
   gem 'capistrano'
+  gem 'ruby-prof'
   gem 'growl'
   gem 'spork-rails'
   gem 'guard-spork'
