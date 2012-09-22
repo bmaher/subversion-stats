@@ -3,17 +3,13 @@ module StatsHelper
   def committers_for(project)
     project.committers
   end
-  
-  def total_commits_for(committer)
-    committer.commits.count
-  end
-  
-  def commits_by(project)
+
+  def total_commits_for(project)
     count = 0
     committers_for(project).each do |committer|
-      count += total_commits_for(committer)
+      count += committer.commits_count
     end
-    return count
+    count
   end
 
   YEAR = 0

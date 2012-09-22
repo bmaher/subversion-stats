@@ -4,6 +4,6 @@ class StatsController < ApplicationController
   
   def index
     @title = "Statistics"
-    @projects = Project.all
+    @projects = Project.all(:include => :committers)
   end
 end

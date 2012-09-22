@@ -48,7 +48,9 @@ class LogImporter
     find_log_entries.each do |entry|
       author = find_author_for(entry)
       unless project.committers.find_by_name(author)
-        @committers << project.committers.create(:name => author)
+        committer = project.committers.new(:name => author)
+        committer.save!
+        @committers << committer
       end
     end
   end
@@ -73,9 +75,11 @@ class LogImporter
     @commits = []
     @committers.each do |committer|
       find_entries_for(committer.name).each do |entry|
-        @commits << committer.commits.create(:revision => entry['revision'],
+        commit = committer.commits.new(:revision => entry['revision'],
                                              :message  => find_message_for(entry),
                                              :datetime => find_date_for(entry))
+        commit.save!
+        @commits << commit
       end
     end
   end

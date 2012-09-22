@@ -14,7 +14,7 @@
 class Commit < ActiveRecord::Base
   attr_accessible :revision, :committer_id, :datetime, :message
   
-  belongs_to  :committer
+  belongs_to  :committer, :counter_cache => true
   has_many    :changes
    
   validates :revision,       :presence => true

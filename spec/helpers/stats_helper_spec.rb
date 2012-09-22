@@ -2,30 +2,6 @@ require 'spec_helper'
 
 describe StatsHelper do
 
-  describe "commits by project" do
-
-    before(:each) do
-      @project = FactoryGirl.create(:project)
-      committer = FactoryGirl.create(:committer, :project => @project)
-      30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revision),
-                                    :committer => committer) }
-    end
-
-    it "should return the total number of commits in a project" do
-      helper.commits_by(@project).should == 30
-    end
-
-    it "should not return commits for another project" do
-      other_project = FactoryGirl.create(:project, :name => "other project")
-      committer = FactoryGirl.create(:committer, :project => other_project)
-      30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revision),
-                                    :committer => committer) }
-      helper.commits_by(@project).should == 30
-    end
-  end
-
   describe "commits by month for committer" do
 
     before(:each) do
@@ -137,21 +113,6 @@ describe StatsHelper do
     it "should return the total number of commits for a project by month" do
       helper.commits_by_for(StatsHelper::MONTH, @project)[0][1].should == 25
       helper.commits_by_for(StatsHelper::MONTH, @project)[1][1].should == 15
-    end
-  end
-
-  describe "total commits for committer" do
-
-    before(:each) do
-      project = FactoryGirl.create(:project)
-      @committer = FactoryGirl.create(:committer, :project => project)
-      30.times { FactoryGirl.create(:commit,
-                                    :revision  => FactoryGirl.generate(:revision),
-                                    :committer => @committer) }
-    end
-
-    it "should return the total number of commits for a committer" do
-      helper.total_commits_for(@committer).should == 30
     end
   end
 

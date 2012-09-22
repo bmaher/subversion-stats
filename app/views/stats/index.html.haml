@@ -5,7 +5,7 @@
     %h2 Total commits for all projects
   %ul
     - @projects.each do |project|
-      %li= "Project: #{project.name}, Total Commits: #{commits_by(project)}"
+      %li= "Project: #{project.name}, Total Commits: #{total_commits_for(project)}"
 
 .committers
   %header
@@ -15,7 +15,7 @@
       %h3= "Project: #{project.name}"
     %ul
       - committers_for(project).each do |committer|
-        %li= "Committer: #{committer.name}, Total Commits: #{total_commits_for(committer)}"
+        %li= "Committer: #{committer.name}, Total Commits: #{committer.commits_count}"
 
 .yearly
   %header
