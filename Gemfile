@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
-gem 'mysql'
+gem 'rails', '3.2.8'
+gem 'mysql2'
 gem 'haml'
 gem 'jquery-rails'
 gem 'therubyracer'
@@ -15,8 +15,8 @@ gem 'devise'
 gem 'cancan'
 
 group :assets do
-  gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :tag=> '3-1-stable'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails'
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier',     '>= 1.0.3'
 end
 
@@ -35,8 +35,6 @@ group :development do
 end
 
 group :test do
-  gem 'ruby-prof'
-  gem 'turn', '0.8.2', :require => false
   gem 'webrat'
   gem 'factory_girl_rails'
 end

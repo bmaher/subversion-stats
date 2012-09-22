@@ -69,4 +69,6 @@ SubversionStats::Application.configure do
       :password             =>  ENV['SMTP_PASSWORD'],
       :authentication       =>  'plain',
       :enable_starttls_auto =>  true  }
+
+  config.log_tags = [:uuid, :remote_ip]
 end
