@@ -27,7 +27,7 @@ describe ChangesController do
     it "should have an element for each change" do
       get :index
       Change.all.paginate(:page => 1).each do |change|
-        response.should have_selector("li", :content => change.revision.to_s)
+        response.should have_selector("li", :content => change.id.to_s)
       end
     end
     

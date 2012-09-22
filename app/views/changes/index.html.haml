@@ -2,6 +2,6 @@
 = will_paginate
 %ul.commits
   - @changes.each do |change|
-    %li= link_to change.revision, change
+    %li= link_to change.id, change
 = link_to 'New Change', new_change_path
 = will_paginate
