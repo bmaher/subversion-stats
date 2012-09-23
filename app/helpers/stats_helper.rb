@@ -1,23 +1,11 @@
 module StatsHelper
-  
-  def committers_for(project)
-    project.committers
-  end
-
-  def total_commits_for(project)
-    count = 0
-    committers_for(project).each do |committer|
-      count += committer.commits_count
-    end
-    count
-  end
 
   YEAR = 0
   MONTH = 1
 
   def commits_by_for(time_range, project)
     range = Array.new
-    committers_for(project).each do |committer|
+    project.committers.each do |committer|
       case time_range
         when YEAR
           range << commits_by_year_for(committer)
