@@ -270,8 +270,8 @@ describe ProjectsController do
     it "should destroy the project" do
       lambda do
         delete :destroy, :id => @project
-        response.should redirect_to(projects_path)
-      end.should change(Project, :count).by(-1)
+      end.should change(DeleteProjectWorker.jobs, :size).by(1)
+      response.should redirect_to(projects_path)
     end
   end
 end

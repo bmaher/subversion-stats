@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-    redirect_to projects_path, notice: 'Project was successfully deleted.'
+    DeleteProjectWorker.perform_async(@project.id)
+    redirect_to projects_path, notice: 'Project is being deleted.'
   end
 end
