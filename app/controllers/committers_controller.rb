@@ -26,7 +26,7 @@ class CommittersController < ApplicationController
     @committer = Committer.new(params[:committer])
 
     if @committer.save
-      redirect_to @committer, notice: 'committer was successfully created.'
+      redirect_to @committer, :notice => 'committer was successfully created.'
     else
       @title = "Create committer"
       render action: "new"
@@ -37,7 +37,7 @@ class CommittersController < ApplicationController
     @committer = Committer.find(params[:id])
 
     if @committer.update_attributes(params[:committer])
-      redirect_to @committer, notice: 'committer was successfully updated.'
+      redirect_to @committer, :notice => 'committer was successfully updated.'
     else
       @title = "Edit committer"
       render action: "edit"

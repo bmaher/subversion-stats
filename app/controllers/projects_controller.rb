@@ -26,9 +26,9 @@ class ProjectsController < ApplicationController
         ImportWorker.perform_async(@project.id, @project.log_file.read)
         message = 'Project is being imported.'
       end
-      current_user.roles=current_user.roles + %w[project_owner]
+      current_user.roles = current_user.roles + %w[project_owner]
       current_user.save!
-      redirect_to @project, notice: message
+      redirect_to @project, :notice => message
     else
       @title = "Create project"
       render action: "new"
@@ -49,15 +49,15 @@ class ProjectsController < ApplicationController
         ImportWorker.perform_async(@project.id, @project.log_file.read)
         message = 'Project is being updated.'
       end
-      redirect_to @project, notice: message
+      redirect_to @project, :notice => message
     else
-      @title = "Edit project  "
+      @title = "Edit project"
       render action: "edit"
     end
   end
 
   def destroy
     DeleteProjectWorker.perform_async(@project.id)
-    redirect_to projects_path, notice: 'Project is being deleted.'
+    redirect_to projects_path, :notice => 'Project is being deleted.'
   end
 end

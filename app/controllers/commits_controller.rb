@@ -26,7 +26,7 @@ class CommitsController < ApplicationController
     @commit = Commit.new(params[:commit])
 
     if @commit.save
-      redirect_to @commit, notice: 'Commit was successfully created.'
+      redirect_to @commit, :notice => 'Commit was successfully created.'
     else
       @title = "Create commit"
       render action: "new"
@@ -37,7 +37,7 @@ class CommitsController < ApplicationController
     @commit = Commit.find(params[:id])
 
     if @commit.update_attributes(params[:commit])
-      redirect_to @commit, notice: 'Commit was successfully updated.'
+      redirect_to @commit, :notice => 'Commit was successfully updated.'
     else
       @title = "Edit commit"
       render action: "edit"

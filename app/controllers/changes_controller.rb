@@ -26,7 +26,7 @@ class ChangesController < ApplicationController
     @change = Change.new(params[:change])
 
     if @change.save
-      redirect_to @change, notice: 'Change was successfully created.'
+      redirect_to @change, :notice => 'Change was successfully created.'
     else
       @title = "Create change"
       render action: "new"
@@ -37,7 +37,7 @@ class ChangesController < ApplicationController
     @change = Change.find(params[:id])
 
     if @change.update_attributes(params[:change])
-      redirect_to @change, notice: 'Change was successfully updated.'
+      redirect_to @change, :notice => 'Change was successfully updated.'
     else
       @title = "Edit change"
       render action: "edit"
