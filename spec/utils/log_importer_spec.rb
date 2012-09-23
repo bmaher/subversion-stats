@@ -261,12 +261,19 @@ describe LogImporter, :broken_in_spork => true do
         end.should change(Commit, :count).by(1)
       end
 
-      it "should increase the counter cache" do
+      it "should increase the committer's counter cache" do
         @committer = @project.committers.last
         lambda do
           @importer.create_commits
           @committer.reload
         end.should change(@committer, :commits_count).by(1)
+      end
+
+      it "should increase the project's counter cache" do
+        lambda do
+          @importer.create_commits
+          @project.reload
+        end.should change(@project, :commits_count).by(1)
       end
     end
 

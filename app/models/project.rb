@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
   has_many :committers, :dependent => :destroy
+  has_many :commits
 
   validates :name,    :presence => true
   validates :user_id, :presence => true

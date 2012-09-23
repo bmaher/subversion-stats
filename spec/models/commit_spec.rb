@@ -51,7 +51,23 @@ describe Commit do
       Commit.new(@attr.merge(:message => "    ")).should be_valid
     end
   end
-  
+
+  describe "project association" do
+
+    before(:each) do
+      @commit = @committer.commits.create(@attr.merge(:project_id => @committer.project_id))
+    end
+
+    it "should have a project attribute" do
+      @commit.should respond_to(:project)
+    end
+
+    it "should have the correct project" do
+      @commit.project_id.should == @committer.project_id
+      @commit.project.should == @committer.project
+    end
+  end
+
   describe "committer associations" do
     
     before(:each) do

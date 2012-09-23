@@ -75,9 +75,10 @@ class LogImporter
     @commits = []
     @committers.each do |committer|
       find_entries_for(committer.name).each do |entry|
-        commit = committer.commits.new(:revision => entry['revision'],
-                                             :message  => find_message_for(entry),
-                                             :datetime => find_date_for(entry))
+        commit = committer.commits.new(:revision   => entry['revision'],
+                                       :message    => find_message_for(entry),
+                                       :datetime   => find_date_for(entry),
+                                       :project_id => committer.project_id)
         commit.save!
         @commits << commit
       end

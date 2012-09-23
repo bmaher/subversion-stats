@@ -63,4 +63,15 @@ describe Project do
       @project.should respond_to(:committers)
     end
   end
+
+  describe "commit associations" do
+
+    before(:each) do
+      @project = Project.create(@attr)
+    end
+
+    it "should have a commit attribute" do
+      @project.should respond_to(:commits)
+    end
+  end
 end
