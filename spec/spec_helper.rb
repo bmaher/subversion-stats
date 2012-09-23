@@ -15,7 +15,7 @@ Spork.prefork do
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.use_transactional_fixtures = true
     config.infer_base_class_for_anonymous_controllers = false
-    config.filter_run_excluding :broken_in_spork => true
+    config.filter_run_excluding :broken_in_spork => false
 
     # Disabling garbage collection (will run every 10 specs to free memory)
     config.after(:each) do
