@@ -9,7 +9,7 @@ gem 'will_paginate'
 gem 'libxml-ruby'
 gem 'newrelic_rpm'
 gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
 gem 'slim'
 gem 'devise'
 gem 'cancan'
