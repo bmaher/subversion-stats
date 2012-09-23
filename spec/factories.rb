@@ -11,9 +11,10 @@ FactoryGirl.define do
   
   factory :commit do
     revision     1234
-    datetime     "01/01/2011"
+    datetime     "2012-01-01T00:00:00.000000A"
     message      "message"
     association  :committer
+    association  :project
   end
   
   factory :change do

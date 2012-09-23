@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   end
   
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find(params[:id], :include => {:committers => :commits})
     @title = @project.name
   end
   

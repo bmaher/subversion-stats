@@ -72,6 +72,58 @@ describe ProjectsController do
       get :show, :id => @project.id
       response.should have_selector("li", :content => @project.committers.find_first.name)
     end
+
+    describe "stats" do
+
+      before(:each) do
+        @committer = FactoryGirl.create(:committer, :project => @project)
+        @commit = FactoryGirl.create(:commit, :project => @project, :committer => @committer)
+        @committer.reload
+        @project.reload
+      end
+
+      it "should have the total number of commits for the project" do
+        get :show, :id => @project.id
+        response.should have_selector("p", :content => @project.commits_count.to_s)
+      end
+
+      it "should have the total number of commits per user" do
+        get :show, :id => @project.id
+        response.should have_selector("li", :content => "#{@committer.name}: #{@committer.commits_count}")
+      end
+
+      it "should have the total number of commits by year" do
+        get :show, :id => @project.id
+        response.should have_selector("li", :content => "#{Date.parse(@commit.datetime).year}: #{@project.commits_count}")
+      end
+
+      it "should have the total number of commits by month" do
+        get :show, :id => @project.id
+        expected_month = Date::MONTHNAMES[Date.parse(@commit.datetime).month]
+        response.should have_selector("li", :content => "#{expected_month}: #{@project.commits_count}")
+      end
+
+      it "should have the yearly commits by user" do
+        FactoryGirl.create(:commit, :project   => @project,
+                                    :committer => @committer,
+                                    :datetime  => "2012-01-01T00:00:00.000000A")
+        @committer.reload
+
+        get :show, :id => @project.id
+        response.should have_selector("li", :content => "#{Date.parse(@commit.datetime).year}: #{@committer.commits_count.to_s}")
+      end
+
+      it "should have the monthly commits by user" do
+        commit = FactoryGirl.create(:commit, :project   => @project,
+                                    :committer => @committer,
+                                    :datetime  => "2012-02-01T00:00:00.000000A")
+        @committer.reload
+
+        get :show, :id => @project.id
+        expected_month = Date::MONTHNAMES[Date.parse(commit.datetime).month]
+        response.should have_selector("li", :content => "#{expected_month}: 1")
+      end
+    end
   end
   
   describe "GET 'new'" do

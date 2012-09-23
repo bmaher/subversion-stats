@@ -1,13 +1,60 @@
 %p#id= notice
-.committer
+
+%header
   %h1= "Project: #{@project.name}"
-  .committers
-    %h3 committers
-    %ul.committers
-      - committers_for(@project).each do |committer|
-        %li= link_to committer.name, committer
-= link_to 'Delete', @project, :method => :delete,
-                                         :confirm => "Are you sure?",
-                                         :title   => @project.name
-= link_to 'Edit', edit_project_path(@project)
-= link_to 'Back', projects_path
+
+.stats
+  %header
+    %h2 Stats
+
+  %p= "Total commits: #{@project.commits_count}"
+
+  %header
+    %h3 By committer
+  %ul
+    - @project.committers.each do |committer|
+      %li= "#{committer.name}: #{committer.commits_count}"
+
+  %header
+    %h3 By year
+  %ul
+    - yearly_commits_for(@project).each do |year, commit|
+      %li= "#{year}: #{commit.count}"
+
+  %header
+    %h3 By month
+  %ul
+    - monthly_commits_for(@project).each do |month, commit|
+      %li= "#{month_name_for(month)}: #{commit.count}"
+
+  %header
+    %h3 Yearly by committer
+  %ul
+    - @project.committers.each do |committer|
+      %header
+        %h4= committer.name
+      - yearly_commits_for(committer).each do |year, commit|
+        %li= "#{year}: #{commit.count}"
+
+  %header
+    %h3 Monthly by committer
+  %ul
+    - @project.committers.each do |committer|
+      %header
+        %h4= committer.name
+      - monthly_commits_for(committer).each do |month, commit|
+        %li= "#{month_name_for(month)}: #{commit.count}"
+
+.committers
+  %header
+    %h2 Committers
+  %ul
+    - @project.committers.each do |committer|
+      %li= link_to committer.name, committer
+
+.links
+  = link_to 'Delete', @project, :method => :delete,
+                                           :confirm => "Are you sure?",
+                                           :title   => @project.name
+  = link_to 'Edit', edit_project_path(@project)
+  = link_to 'Back', projects_path

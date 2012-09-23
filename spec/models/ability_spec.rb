@@ -56,10 +56,6 @@ describe Ability do
         @basic_user.should_not be_able_to(:update, Change)
         @basic_user.should_not be_able_to(:destroy, Change)
       end
-
-      it "cannot access the stats page" do
-        @basic_user.should_not be_able_to(:read, StatsController)
-      end
     end
   end
 
