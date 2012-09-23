@@ -142,6 +142,12 @@ describe ProjectsController do
         post :create, :project => @attr
         User.find(@user.id).has_role?(:project_owner).should == true
       end
+
+      it "should create a new import worker and queue the import job" do
+        lambda do
+          post :create, :project => @attr.merge(:log_file => fixture_file_upload('/files/simple_log.xml', 'text/xml'))
+        end.should change(ImportWorker.jobs, :size).by(1)
+      end
     end
   end
   

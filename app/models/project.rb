@@ -10,7 +10,8 @@
 #
 
 class Project < ActiveRecord::Base
-  attr_accessible :name, :user_id
+  attr_accessor :log_file
+  attr_accessible :name, :user_id, :log_file
 
   belongs_to :user
   has_many :committers, :dependent => :destroy

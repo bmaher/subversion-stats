@@ -60,10 +60,6 @@ describe Ability do
       it "cannot access the stats page" do
         @basic_user.should_not be_able_to(:read, StatsController)
       end
-
-      it "cannot access the uploads page" do
-        @basic_user.should_not be_able_to(:read, UploadsController)
-      end
     end
   end
 

@@ -12,7 +12,7 @@ class Committer < ActiveRecord::Base
   attr_accessible :name, :project_id
   
   belongs_to :project, :counter_cache => true
-  has_many   :commits
+  has_many   :commits, :dependent => :destroy
   
   validates :name,       :presence => true
   validates :project_id, :presence => true

@@ -1,8 +1,0 @@
-= form_for @upload, :html => { :multipart => true } do |f|
-  = render "shared/error_messages", :f => f, :@object => f.object
-  .field
-    %div= f.label "Project Name"
-    %div= f.text_field :project_name
-  .field
-    %div= f.file_field :log_file
-    %div= f.submit "Upload"

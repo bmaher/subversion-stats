@@ -21,9 +21,14 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.build(params[:project])
 
     if @project.save
+      message = 'Project was successfully created.'
+      unless @project.log_file.blank?
+        ImportWorker.perform_async(@project.id, @project.log_file.read)
+        message = 'Project is being imported.'
+      end
       current_user.roles=current_user.roles + %w[project_owner]
       current_user.save!
-      redirect_to @project, notice: 'Project was successfully created.'
+      redirect_to @project, notice: message
     else
       @title = "Create project"
       render action: "new"
@@ -39,7 +44,12 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     if @project.update_attributes(params[:project])
-      redirect_to @project, notice: 'Project was successfully updated.'
+      message = 'Project was successfully updated.'
+      unless @project.log_file.blank?
+        ImportWorker.perform_async(@project.id, @project.log_file.read)
+        message = 'Project is being updated.'
+      end
+      redirect_to @project, notice: message
     else
       @title = "Edit project  "
       render action: "edit"

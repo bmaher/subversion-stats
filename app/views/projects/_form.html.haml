@@ -1,7 +1,9 @@
-= form_for(@project) do |f|
+= form_for @project, :html => { :multipart => true } do |f|
   = render "shared/error_messages", :f => f, :@object => f.object
   .field
     %div= f.label :name
     %div= f.text_field :name
+  .field
+    %div= f.file_field :log_file
   .actions
     %div= f.submit
