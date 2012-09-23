@@ -32,7 +32,9 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-jasmine'
   gem 'guard-livereload'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  group :darwin do
+    gem 'rb-fsevent', :require => false
+  end
 end
 
 group :test do
