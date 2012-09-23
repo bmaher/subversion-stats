@@ -13,6 +13,7 @@ gem 'sinatra', :require => false
 gem 'slim'
 gem 'devise'
 gem 'cancan'
+gem 'open4'
 
 group :assets do
   gem 'sass-rails'

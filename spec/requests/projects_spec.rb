@@ -41,15 +41,36 @@ describe "Projects" do
 
       describe "with log file" do
 
-        it "should make a new project and import the log file" do
-          lambda do
-            visit new_project_path
-            fill_in "Name", :with => "Test Project"
-            attach_file('project_log_file', File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'), 'text/xml')
-            click_button
-            response.should have_selector("p", :content => "Project is being imported.")
-            response.should render_template("projects/show")
-          end.should change(Project, :count).by(1) && change(ImportWorker.jobs, :size).by(1)
+        describe "manual upload" do
+
+          it "should make a new project and import the log file" do
+            lambda do
+              visit new_project_path
+              fill_in "Name", :with => "Test Project"
+              attach_file('project_log_file', File.join(Rails.root, 'spec/fixtures/files/simple_log.xml'), 'text/xml')
+              click_button
+              response.should have_selector("p", :content => "Project is being imported.")
+              response.should render_template("projects/show")
+            end.should change(Project, :count).by(1) && change(ImportWorker.jobs, :size).by(1)
+          end
+        end
+
+        describe "http upload" do
+
+          it "should make a new project and import the log file" do
+            lambda do
+              visit new_project_path
+              fill_in "Name",           :with => "Test Project"
+              fill_in "Repository Url", :with => "localhost"
+              fill_in "Username",       :with => "user"
+              fill_in "Password",       :with => "password"
+              fill_in "Revision from",  :with => "HEAD"
+              fill_in "Revision to",    :with => "1000"
+              click_button
+              response.should have_selector("p", :content => "Project is being imported.")
+              response.should render_template("projects/show")
+            end.should change(Project, :count).by(1) && change(LogOverHttpWorker.jobs, :size).by(1)
+          end
         end
       end
     end 

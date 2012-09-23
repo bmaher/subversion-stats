@@ -4,6 +4,21 @@
     %div= f.label :name
     %div= f.text_field :name
   .field
+    %div= f.label :repository_url
+    %div= f.text_field :repository_url
+  .field
+    %div= f.label :username
+    %div= f.text_field :username
+  .field
+    %div= f.label :password
+    %div= f.password_field :password
+  .field
+    %div= f.label :revision_from
+    %div= f.text_field :revision_from
+  .field
+    %div= f.label :revision_to
+    %div= f.text_field :revision_to
+  .field
     %div= f.file_field :log_file
   .actions
     %div= f.submit

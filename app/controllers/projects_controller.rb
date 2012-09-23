@@ -22,10 +22,22 @@ class ProjectsController < ApplicationController
 
     if @project.save
       message = 'Project was successfully created.'
+
+      unless @project.repository_url.blank?
+        repository_details = { :repository_url => @project.repository_url,
+                               :username => @project.username,
+                               :password => @project.password,
+                               :revision_from => @project.revision_from,
+                               :revision_to => @project.revision_to }
+        LogOverHttpWorker.perform_async(@project.id, repository_details)
+        message = 'Project is being imported.'
+      end
+
       unless @project.log_file.blank?
         ImportWorker.perform_async(@project.id, @project.log_file.read)
         message = 'Project is being imported.'
       end
+
       current_user.roles = current_user.roles + %w[project_owner]
       current_user.save!
       redirect_to @project, :notice => message

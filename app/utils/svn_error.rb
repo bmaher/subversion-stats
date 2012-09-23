@@ -1,0 +1,2 @@
+class SvnError < StandardError
+end

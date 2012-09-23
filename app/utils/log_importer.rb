@@ -15,7 +15,11 @@ class LogImporter
     if valid?
       create_committers
       create_commits
-      create_changes
+      begin
+        create_changes
+      rescue ImportError => import_error
+        warn import_error.message
+      end
     else
       raise ImportError.new, "Log validation failed! Please provide a valid SVN log file."
     end
@@ -101,16 +105,20 @@ class LogImporter
     inserts = []
     now = Time.now.strftime('%F %T')
     @commits.each do |commit|
-       find_changes_for(commit.revision).each do |change|
-         file_paths = find_file_paths_for(change)
-         inserts.push "(\"#{commit.revision}\", \"#{change['action']}\", \"#{file_paths[1][0]}\", \"#{file_paths[1][2]}\", \"#{file_paths[0]}\", \"#{now}\", \"#{now}\", \"#{commit.id}\")"
-       end
+      changes = find_changes_for(commit.revision)
+      if changes.size == 0
+        raise ImportError.new, "No changes found for commit #{commit.id}"
+      end
+      changes.each do |change|
+        file_paths = find_file_paths_for(change)
+        inserts.push "(\"#{commit.revision}\", \"#{change['action']}\", \"#{file_paths[1][0]}\", \"#{file_paths[1][2]}\", \"#{file_paths[0]}\", \"#{now}\", \"#{now}\", \"#{commit.id}\")"
+      end
+      execute_single_insert_with(inserts)
     end
-    execute_single_insert_with(inserts)
   end
 
-  def find_changes_for(commit)
-    @xml.root.find("./logentry[@revision=#{commit}]/paths/path")
+  def find_changes_for(revision)
+    @xml.root.find("./logentry[@revision=#{revision}]/paths/path")
   end
 
   def find_file_paths_for(change)

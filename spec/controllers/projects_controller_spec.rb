@@ -195,10 +195,26 @@ describe ProjectsController do
         User.find(@user.id).has_role?(:project_owner).should == true
       end
 
-      it "should create a new import worker and queue the import job" do
-        lambda do
-          post :create, :project => @attr.merge(:log_file => fixture_file_upload('/files/simple_log.xml', 'text/xml'))
-        end.should change(ImportWorker.jobs, :size).by(1)
+      describe "manual upload" do
+
+        it "should create a new import worker and queue the import job" do
+          lambda do
+            post :create, :project => @attr.merge(:log_file => fixture_file_upload('/files/simple_log.xml', 'text/xml'))
+          end.should change(ImportWorker.jobs, :size).by(1)
+        end
+      end
+
+      describe "http upload" do
+
+        it "should create a new log over http worker and queue the import job" do
+          lambda do
+            post :create, :project => @attr.merge(:repository_url => 'localhost',
+                                                  :username       => 'user',
+                                                  :password       => 'password',
+                                                  :revision_from  => 'HEAD',
+                                                  :revision_to    => '1000')
+          end.should change(LogOverHttpWorker.jobs, :size).by(1)
+        end
       end
     end
   end
