@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LogOverHttp do
+describe LogOverHttp, :broken_in_travis => true do
 
   before(:each) do
     @attr = { :repository_url => 'http://v8.googlecode.com/svn/trunk/',
