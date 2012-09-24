@@ -21,26 +21,18 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.build(params[:project])
 
     if @project.save
-      message = 'Project was successfully created.'
 
       unless @project.repository_url.blank?
-        repository_details = { :repository_url => @project.repository_url,
-                               :username => @project.username,
-                               :password => @project.password,
-                               :revision_from => @project.revision_from,
-                               :revision_to => @project.revision_to }
-        LogOverHttpWorker.perform_async(@project.id, repository_details)
-        message = 'Project is being imported.'
+        fetch_and_import_log_file
       end
-
       unless @project.log_file.blank?
-        ImportWorker.perform_async(@project.id, @project.log_file.read)
-        message = 'Project is being imported.'
+        import_log_file
       end
 
       current_user.roles = current_user.roles + %w[project_owner]
       current_user.save!
-      redirect_to @project, :notice => message
+
+      redirect_to @project, :notice => @create_message ||= 'Project was successfully created.'
     else
       @title = "Create project"
       render action: "new"
@@ -71,5 +63,22 @@ class ProjectsController < ApplicationController
   def destroy
     DeleteProjectWorker.perform_async(@project.id)
     redirect_to projects_path, :notice => 'Project is being deleted.'
+  end
+
+  private
+
+  def import_log_file
+    ImportWorker.perform_async(@project.id, @project.log_file.read)
+    @create_message = 'Project is being imported.'
+  end
+
+  def fetch_and_import_log_file
+    repository_details = { :repository_url => @project.repository_url,
+                           :username => @project.username,
+                           :password => @project.password,
+                           :revision_from => @project.revision_from,
+                           :revision_to => @project.revision_to }
+    FetchWorker.perform_async(@project.id, repository_details)
+    @create_message = 'Project is being imported.'
   end
 end

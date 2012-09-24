@@ -1,6 +1,6 @@
 require 'open4'
 
-class LogOverHttp
+class LogFetcher
 
   def initialize(repository_details)
     @repo = repository_details.symbolize_keys
@@ -13,7 +13,7 @@ class LogOverHttp
       @stderr = stderr.readlines.join.gsub("\n", '')
     end
     unless status == 0
-      raise SvnError.new, "The error: [#@stderr] was raised by command: [#{command}]"
+      raise Errors::SvnError.new, "The error: [#@stderr] was raised by command: [#{command}]"
     end
     @output
   end

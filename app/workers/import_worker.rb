@@ -3,8 +3,7 @@ require 'log_importer'
 class ImportWorker
   include Sidekiq::Worker
 
-  def perform(project, log)
-    importer = LogImporter.new(project, log)
-    importer.import
+  def perform(project_id, log)
+    LogImporter.new(project_id, log).import
   end
 end

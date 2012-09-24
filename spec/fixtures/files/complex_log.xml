@@ -13,7 +13,7 @@
     </msg>
   </logentry>
   <logentry
-          revision="1">
+          revision="2">
     <author>test-committer</author>
     <date>2012-09-12T00:00:00.000000A</date>
     <paths>
@@ -21,7 +21,7 @@
               kind="file"
               action="A">/trunk/src/file</path>
     </paths>
-    <msg>First commit.
+    <msg>Second commit.
     </msg>
   </logentry>
 </log>

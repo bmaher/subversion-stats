@@ -69,7 +69,7 @@ describe "Projects" do
               click_button
               response.should have_selector("p", :content => "Project is being imported.")
               response.should render_template("projects/show")
-            end.should change(Project, :count).by(1) && change(LogOverHttpWorker.jobs, :size).by(1)
+            end.should change(Project, :count).by(1) && change(FetchWorker.jobs, :size).by(1)
           end
         end
       end

@@ -39,7 +39,7 @@ describe LogImporter, :broken_in_spork => true do
         it "should return a parsing error" do
           lambda do
             @importer.parse('invalid xml')
-          end.should raise_error(ImportError, "Fatal error: Start tag expected, '<' not found at :1.")
+          end.should raise_error(Errors::ImportError, "Fatal error: Start tag expected, '<' not found at :1.")
         end
       end
     end
@@ -72,7 +72,7 @@ describe LogImporter, :broken_in_spork => true do
           invalid_xml = LibXML::XML::Document.string('<invalidNode>value</invalidNode>')
           lambda do
             @importer.validate(invalid_xml, @schema)
-          end.should raise_error(ImportError, "Error: Element 'invalidNode': No matching global declaration available for the validation root. at :1.")
+          end.should raise_error(Errors::ImportError, "Error: Element 'invalidNode': No matching global declaration available for the validation root. at :1.")
         end
       end
     end
@@ -102,7 +102,7 @@ describe LogImporter, :broken_in_spork => true do
           it "should throw an exception" do
             lambda do
               @importer.find_project
-            end.should raise_error(ImportError, "Project with id '1' not found! Stopping import.")
+            end.should raise_error(Errors::ImportError, "Project with id '1' not found! Stopping import.")
           end
         end
       end
@@ -300,6 +300,26 @@ describe LogImporter, :broken_in_spork => true do
       lambda do
         importer.import
       end.should change(Committer, :count).by(1) && change(Commit, :count).by(1) && change(Change, :count).by(1)
+    end
+  end
+
+  describe "update" do
+
+    before(:each) do
+      @project_id = Project.create(:name => 'Test Project', :user_id => 1).id
+      LogImporter.new(@project_id, File.open(File.join(Rails.root, 'spec/fixtures/files/simple_log.xml')).read).import
+    end
+
+    it "should update already existing committer's commits" do
+      log = File.open(File.join(Rails.root, 'spec/fixtures/files/complex_log.xml'))
+      importer = LogImporter.new(@project_id, log.read)
+      committer = Committer.find_by_project_id(@project_id)
+      commit_count = committer.commits_count
+      lambda do
+        importer.import
+      end.should_not change(Committer, :count)
+      committer.reload
+      committer.commits_count.should eq commit_count + 1
     end
   end
 end

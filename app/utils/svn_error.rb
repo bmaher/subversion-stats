@@ -1,2 +1,0 @@
-class SvnError < StandardError
-end

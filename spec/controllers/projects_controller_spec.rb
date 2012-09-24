@@ -213,7 +213,7 @@ describe ProjectsController do
                                                   :password       => 'password',
                                                   :revision_from  => 'HEAD',
                                                   :revision_to    => '1000')
-          end.should change(LogOverHttpWorker.jobs, :size).by(1)
+          end.should change(FetchWorker.jobs, :size).by(1)
         end
       end
     end
