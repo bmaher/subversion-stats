@@ -9,6 +9,7 @@ class LogImporter
     @project_id = project_id
     @log = log
     @xml = nil
+    @changes_count = 0
   end
 
   def import
@@ -51,13 +52,13 @@ class LogImporter
     project = find_project
     find_log_entries.each do |entry|
       author = find_author_for(entry)
-      @committers << Committer.find_or_create_by_name(author, :project_id => project.id)
+      @committers << Committer.find_or_create_by_name_and_project_id(author, project.id)
     end
   end
 
   def find_project
     begin
-      Project.find(@project_id)
+      Project.find(@project_id, :include => [:committers => :commits])
     rescue ActiveRecord::RecordNotFound
       raise Errors::ImportError.new(@project_id), "Project with id '#@project_id' not found! Stopping import."
     end
@@ -75,11 +76,15 @@ class LogImporter
     @commits = []
     @committers.each do |committer|
       find_entries_for(committer.name).each do |entry|
-        @commits << Commit.find_or_create_by_revision(entry['revision'],
-                                                       :message => find_message_for(entry),
-                                                       :datetime => find_date_for(entry),
-                                                       :committer_id => committer.id,
-                                                       :project_id => committer.project_id)
+        revision = entry['revision']
+        existing_commits = committer.project.commits
+        next if existing_commits.any?{ |commit| commit.revision == revision.to_i }
+        commit = committer.commits.new(:revision   => revision,
+                                       :message    => find_message_for(entry),
+                                       :datetime   => find_date_for(entry),
+                                       :project_id => committer.project_id )
+        commit.save!
+        @commits << commit
       end
     end
   end
@@ -104,7 +109,10 @@ class LogImporter
         file_paths = find_file_paths_for(change)
         inserts.push "(\"#{commit.revision}\", \"#{change['action']}\", \"#{file_paths[1][0]}\", \"#{file_paths[1][2]}\", \"#{file_paths[0]}\", \"#{now}\", \"#{now}\", \"#{commit.id}\")"
       end
-      execute_single_insert_with(inserts)
+      unless @changes_count == 0
+        execute_single_insert_with(inserts)
+        inserts.clear
+      end
     end
   end
 
@@ -113,6 +121,7 @@ class LogImporter
     if changes.size == 0
       raise Errors::ImportError.new, "No changes found for revision #{revision}. Project id = #@project_id"
     else
+      @changes_count += 1
       changes
     end
   end
