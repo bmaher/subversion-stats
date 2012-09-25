@@ -24,15 +24,17 @@ class ProjectsController < ApplicationController
 
       unless @project.repository_url.blank?
         fetch_and_import_log_file
+        set_message CREATE
       end
       unless @project.log_file.blank?
         import_log_file
+        set_message CREATE
       end
 
       current_user.roles = current_user.roles + %w[project_owner]
       current_user.save!
 
-      redirect_to @project, :notice => @create_message ||= 'Project was successfully created.'
+      redirect_to @project, :notice => @message ||= 'Project was successfully created.'
     else
       @title = "Create project"
       render action: "new"
@@ -48,12 +50,17 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     if @project.update_attributes(params[:project])
-      message = 'Project was successfully updated.'
-      unless @project.log_file.blank?
-        ImportWorker.perform_async(@project.id, @project.log_file.read)
-        message = 'Project is being updated.'
+
+      unless @project.repository_url.blank?
+        fetch_and_import_log_file
+        set_message UPDATE
       end
-      redirect_to @project, :notice => message
+      unless @project.log_file.blank?
+        import_log_file
+        set_message UPDATE
+      end
+
+      redirect_to @project, :notice => @message ||= 'Project was successfully updated.'
     else
       @title = "Edit project"
       render action: "edit"
@@ -69,7 +76,6 @@ class ProjectsController < ApplicationController
 
   def import_log_file
     ImportWorker.perform_async(@project.id, @project.log_file.read)
-    @create_message = 'Project is being imported.'
   end
 
   def fetch_and_import_log_file
@@ -79,6 +85,18 @@ class ProjectsController < ApplicationController
                            :revision_from => @project.revision_from,
                            :revision_to => @project.revision_to }
     FetchWorker.perform_async(@project.id, repository_details)
-    @create_message = 'Project is being imported.'
+  end
+
+  CREATE = 0
+  UPDATE = 1
+  def set_message(action_type)
+    case action_type
+      when CREATE
+        @message = 'Project is being imported.'
+      when UPDATE
+        @message = 'Project is being updated.'
+      else
+        @message = nil
+    end
   end
 end
