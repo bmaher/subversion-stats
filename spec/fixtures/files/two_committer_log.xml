@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<log>
+  <logentry
+          revision="1">
+    <author>test-committer</author>
+    <date>2012-09-12T00:00:00.000000A</date>
+    <paths>
+      <path
+              kind="file"
+              action="A">/trunk/src/file</path>
+    </paths>
+    <msg>First commit.
+    </msg>
+  </logentry>
+  <logentry
+          revision="2">
+    <author>test-committer</author>
+    <date>2012-09-12T00:00:00.000000A</date>
+    <paths>
+      <path
+              kind="file"
+              action="A">/trunk/src/file</path>
+    </paths>
+    <msg>Second commit.
+    </msg>
+  </logentry>
+  <logentry
+          revision="2">
+    <author>new-committer</author>
+    <date>2012-09-12T00:00:00.000000A</date>
+    <paths>
+      <path
+              kind="file"
+              action="A">/trunk/src/file</path>
+    </paths>
+    <msg>Third commit.
+    </msg>
+  </logentry>
+</log>

@@ -3,13 +3,15 @@ require 'spec_helper'
 describe LogImporter, :broken_in_spork => true do
 
   it "should require a project id and a log" do
-    LogImporter.new(1, '<log/>')
+    project = FactoryGirl.create(:project)
+    LogImporter.new(project.id, '<log/>')
   end
 
   describe "xml" do
 
     before(:each) do
-      @importer = LogImporter.new(1, '<log/>')
+      project = FactoryGirl.create(:project)
+      @importer = LogImporter.new(project.id, '<log/>')
     end
 
     describe "parse xml" do
@@ -89,11 +91,11 @@ describe LogImporter, :broken_in_spork => true do
           end
 
           it "should return a project object" do
-            @importer.find_project.should be_a(Project)
+            @importer.find_project(@project.id).should be_a(Project)
           end
 
           it "should return the right project" do
-            @importer.find_project.should == @project
+            @importer.find_project(@project.id).should == @project
           end
         end
 
@@ -101,8 +103,8 @@ describe LogImporter, :broken_in_spork => true do
 
           it "should throw an exception" do
             lambda do
-              @importer.find_project
-            end.should raise_error(Errors::ImportError, "Project with id '1' not found! Stopping import.")
+              LogImporter.new(0, '<\log>').find_project(0)
+            end.should raise_error(Errors::ImportError, "Project with id '0' not found! Stopping import.")
           end
         end
       end
@@ -118,6 +120,37 @@ describe LogImporter, :broken_in_spork => true do
           entries[0].content.should == first
           entries[1].content.should == second
           end
+      end
+
+      describe "find authors" do
+
+        before(:each) do
+          @first_author = 'First Author'
+          @second_author = 'Second Author'
+          @third_author = 'Second Author'
+          @importer.parse("""<log>
+                              <logentry>
+                                <author>#@first_author</author>
+                              </logentry>
+                              <logentry>
+                                <author>#@second_author</author>
+                              </logentry>
+                              <logentry>
+                                <author>#@third_author</author>
+                              </logentry>
+                             </log>""")
+        end
+
+        it "should return an array of all authors" do
+          @importer.find_authors.should be_an Array
+        end
+
+        it "should only return one instance of an author if multiple entries with the same author exist" do
+          authors = @importer.find_authors
+          authors.size.should eq 2
+          authors[0].should eq @first_author
+          authors[1].should eq @second_author
+        end
       end
 
       describe "find author" do
@@ -246,6 +279,23 @@ describe LogImporter, :broken_in_spork => true do
           @importer.create_committers
           @project.reload
         end.should change(@project, :committers_count).by(1)
+      end
+
+      describe "find authors that aren't in db" do
+
+        before(:each) do
+          @importer.import
+          log = File.open(File.join(Rails.root, 'spec/fixtures/files/two_committer_log.xml'))
+          @importer = LogImporter.new(@project.id, log.read)
+          @importer.valid?
+        end
+
+        it "should return an array of authors that don't already exist" do
+          new_authors = @importer.find_new_authors
+          new_authors.should be_an Array
+          new_authors.size.should be 1
+          new_authors[0].should eq 'new-committer'
+        end
       end
     end
 
