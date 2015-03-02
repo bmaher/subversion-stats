@@ -41,6 +41,7 @@ end
 group :test do
   gem 'webrat'
   gem 'factory_girl_rails'
+  gem 'codeclimate-test-reporter'
 end
 
 group :development, :test do
