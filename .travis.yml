@@ -5,3 +5,6 @@ before_script:
     - rake db:migrate
 script: 'rake spec'
 after_script: 'bundle exec guard-jasmine'
+addons:
+  code_climate:
+    repo_token=594e65982496dc34551f5fb31dab3e1bb8d5d3b5ab0e9017b3d2bb07d678acd5
